@@ -1,0 +1,19 @@
+{
+  "name": "storefleet-app",
+  "version": "1.0.0",
+  "description": "This is a Full Stack Project of the StoreFleel based on the React on the Frontend Nodejs , Expressjs & MongoDb on the Backend ",
+  "main": "index.js",
+  "scripts": {
+    "install-all": "npm install --prefix client && npm install --prefix server",
+    "client": "npm run dev --prefix client",
+    "server": "npm run dev --prefix server",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "build": "npm run build --prefix client",
+    "start": "node server/src/server.js"
+  },
+  "author": "Abhishek Rawat",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

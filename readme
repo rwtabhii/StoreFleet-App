@@ -1,0 +1,220 @@
+# 🏩 StoreFleet - Full-Stack E-commerce Application
+
+**StoreFleet** is a modern full-stack e-commerce application with a **Node.js + Express backend** and a **React + Vite frontend** It supports full user management, product handling, order processing, and secure authentication/authorization mechanisms, with a responsive, interactive UI.
+
+---
+
+## 🚀 Features
+
+### Backend (Node.js + Express + MongoDB)
+
+* ✅ **Authentication & Authorization**
+
+  * Signup/Login using hashed passwords (bcryptjs)
+  * JWT-based authentication and secure cookies
+  * Role-based route access control (user/admin)
+
+* 🧠 **Product & Review Management**
+
+  * CRUD operations for products
+  * Add/update/delete product reviews
+  * Only review owner can delete
+
+* 🛒 **Order Processing**
+
+  * Create orders with multiple items
+  * Stock auto-reduction after purchase
+  * Store shipping and payment info
+
+* 🔐 **Security & User Control**
+
+  * Forgot password with token-based expiry
+  * Admin-only access for sensitive routes
+  * Admin can update user roles/profiles
+
+* 🧩 **Search, Filter & Pagination**
+
+  * Keyword search, category/price/rating filter
+  * Pagination support (10 products per page)
+
+---
+
+### Frontend (React + Vite + Firebase)
+
+* 🔐 **Authentication** – Sign up, login, logout using Firebase Auth
+* 🛍️ **Product Listing** – Display products with filtering & search
+* 🛒 **Shopping Cart** – Add, remove, update items globally (Redux Toolkit)
+* 📝 **Orders** – Place orders and view order history
+* 🎨 **Responsive UI** – Works on desktop and mobile
+* 🔔 **Notifications** – Toasts for user actions (React Toastify)
+
+---
+
+## 📁 Project Structure
+
+```
+StoreFleet/
+├── backend/
+│   ├── config/.env           # Backend environment variables
+│   ├── src/
+│   │   ├── user/             # User controllers, models, routes
+│   │   ├── product/          # Product controllers, models, routes
+│   │   ├── order/            # Order controllers, models, routes
+│   │   ├── middlewares/      # Auth, error handling, validation
+│   │   └── utils/            # Helper functions
+│   └── server.js             # Backend entry point
+├── client/
+│   ├── public/               # Static assets
+│   ├── src/
+│   │   ├── api/              # Firebase API functions
+│   │   ├── components/       # Reusable UI components
+│   │   ├── redux/            # Redux reducers & store
+│   │   ├── pages/            # App pages (home, login, cart, orders)
+│   │   ├── App.jsx
+│   │   ├── main.jsx
+│   │   └── index.css
+│   └── package.json
+├── package.json              # Root scripts & dev dependencies
+└── README.md
+```
+
+---
+
+## ⚙️ Setup & Installation
+
+### 1️⃣ Clone the Repository
+
+```bash
+git clone https://github.com/your-username/StoreFleet.git
+cd StoreFleet
+```
+
+### 2️⃣ Install Dependencies
+
+#### Option 1: Install manually in each folder (safer on Windows)
+
+```bash
+cd backend
+npm install
+cd ../client
+npm install
+cd ..
+npm install  # if root has dev dependencies like concurrently
+```
+
+#### Option 2: From root using scripts
+
+Add this to root `package.json`:
+
+```json
+"scripts": {
+  "install-all": "npm install --prefix client && npm install --prefix backend"
+}
+```
+
+Then run:
+
+```bash
+npm run install-all
+```
+
+---
+
+### 3️⃣ Configure Environment Variables
+
+#### Backend (`backend/config/.env`):
+
+```env
+PORT=5000
+MONGO_URI=your_mongo_connection_string
+JWT_SECRET=your_jwt_secret
+JWT_EXPIRE=5d
+COOKIE_EXPIRES_IN=5
+STOREFLEET_SMTP_MAIL=your_email@gmail.com
+STOREFLEET_SMTP_PASSWORD=your_app_password
+```
+
+#### Frontend (`client/.env` for Firebase):
+
+```env
+VITE_API_KEY=your_api_key
+VITE_AUTH_DOMAIN=your_auth_domain
+VITE_PROJECT_ID=your_project_id
+VITE_STORAGE_BUCKET=your_storage_bucket
+VITE_MESSAGING_SENDER_ID=your_messaging_sender_id
+VITE_APP_ID=your_app_id
+VITE_API_URL=http://localhost:5000/api
+```
+
+> Note: Keep `.env` files **private** and add them to `.gitignore`.
+
+---
+
+### 4️⃣ Run the Application
+
+#### Backend Only
+
+```bash
+cd backend
+npx nodemon server.js
+```
+
+#### Frontend Only
+
+```bash
+cd client
+npm run dev
+```
+
+#### Both Together (from root, with concurrently)
+
+Add this to root `package.json`:
+
+```json
+"scripts": {
+  "client": "npm run dev --prefix client",
+  "server": "npm run dev --prefix backend",
+  "dev": "concurrently \"npm run server\" \"npm run client\""
+}
+```
+
+Then run:
+
+```bash
+npm run dev
+```
+
+* Frontend → `http://localhost:5173`
+* Backend → `http://localhost:5000`
+
+---
+
+## 💌 API Documentation
+
+* Use Postman to test endpoints:
+  [Postman Link](https://documenter.getpostman.com/view/xxxxxxxxxx) *(replace with your own)*
+
+---
+
+## 🛠 Technologies Used
+
+* **Backend:** Node.js, Express.js, MongoDB (Mongoose), JWT, bcryptjs, Nodemailer
+* **Frontend:** React, Vite, Redux Toolkit, CSS, React Toastify
+* **Database/Auth:** MongoDB & Firebase
+* **Tools:** Nodemon, concurrently, validator.js
+
+---
+
+## 👤 Contribution
+
+1. Fork the repo
+2. Create a branch: `git checkout -b feature-name`
+3. Make changes and commit: `git commit -m "Add feature"`
+4. Push: `git push origin feature-name`
+5. Open a Pull Request
+
+---
+
+## 📄 License
+
+MIT License. Open-source for everyone.

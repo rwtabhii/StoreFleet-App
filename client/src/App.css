@@ -1,0 +1,6 @@
+.App {
+  display: flex;
+  flex-direction: column; /* Stack navbar, page, footer */
+  min-height: 100vh;      /* At least full viewport height */
+  background-color: #f9f9f9; /* Light background */
+}

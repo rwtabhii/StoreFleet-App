@@ -1,0 +1,19 @@
+.orderTable {
+    text-align: center;
+    margin-top: 2rem;
+}
+.order-date{
+    color: #224957;
+    font-size: 1.25em;
+    font-weight: 700;
+}
+.Order-Table {
+    border: none;
+    margin: 0 auto 4rem;
+    position: relative;
+    width: 50%;
+}
+
+.Order-Table tr {
+    background-color: #d9d9d936;
+}
