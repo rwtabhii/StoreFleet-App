@@ -25,24 +25,18 @@ const productSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    images: [
-      {
-        public_id: {
-          type: String,
-          required: true,
-        },
-        url: {
-          type: String,
-          required: true,
-        },
-      },
-    ],
+    image: {
+      type: String,
+      required: true,
+    },
     category: {
       type: String,
       required: [true, "product category is required"],
       enum: [
+        "mensCloth",
+        "womansCloth",
         "Mobile",
-        "Electronics",
+        "electronic",
         "Clothing",
         "Home & Garden",
         "Automotive",
@@ -50,7 +44,7 @@ const productSchema = new mongoose.Schema(
         "Sports & Outdoors",
         "Toys & Games",
         "Books & Media",
-        "Jewelry",
+        "jewellary",
         "Food & Grocery",
         "Furniture",
         "Shoes",
@@ -99,7 +93,7 @@ const productSchema = new mongoose.Schema(
       type: Date,
       default: Date.now(),
     },
-  }, 
+  },
   timeStamp
 );
 

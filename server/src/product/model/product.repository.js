@@ -4,6 +4,10 @@ export const addNewProductRepo = async (product) => {
   return await new ProductModel(product).save();
 };
 
+export const getAllProductsList = async()=>{
+  return await ProductModel.find();
+}
+
 export const getAllProductsRepo = async (condition,productPerPage,pageNumber) => {
   console.log(condition);
   return await ProductModel.find(condition)

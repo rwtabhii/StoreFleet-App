@@ -1,16 +1,11 @@
-import { db } from "../../firebaseinit";
-import { getDocs, addDoc, doc, collection } from "firebase/firestore";
-
+import axios from "axios";
 export async function getProductApi() {
     try {
-        const querySnapshot = await getDocs(collection(db,"products"));
-        const products = querySnapshot.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data()
-        }));
-        return products
+       const response  = await axios.get("/api/storefleet/product/products",{useCredentials:true});
+       console.log(response.data);
+       return  response.data.products
     } catch (error) {
-        console.log(error) 
+        console.log(error);
     }
 }
 // for adding the product

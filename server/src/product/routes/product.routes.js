@@ -14,7 +14,7 @@ import { auth, authByUserRole } from "../../../middlewares/auth.js";
 const router = express.Router();
 
 // GET Routes
-router.route("/products").get(auth,getAllProducts);
+router.route("/products").get(getAllProducts);
 router.route("/details/:id").get(auth,getProductDetails);
 router.route("/reviews/:id").get(auth,getAllReviewsOfAProduct);
 

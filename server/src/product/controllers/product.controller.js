@@ -6,6 +6,7 @@ import {
   addNewProductRepo,
   deleProductRepo,
   findProductRepo,
+  getAllProductsList,
   getAllProductsRepo,
   getProductDetailsRepo,
   getTotalCountsOfProduct,
@@ -30,66 +31,77 @@ export const addNewProduct = async (req, res, next) => {
   }
 };
 
-// getting the all product 
+
 export const getAllProducts = async (req, res, next) => {
-  // Implement the functionality for search, filter and pagination this function.
   try {
-    const { page, keyword, category, price, rating } = req.query;
-    // set the product limit to 10 (one page contain the 10 product)
-    const productPerPage = 10;
-    const pageNumber = Number(page) || 1;
-    const keywordSearch = keyword || "";
-
-    // searching condition  (using "i" in the option to take all result of lower and upper case) 
-    const searchProductCondition = {
-      name: {
-        $regex: keywordSearch,
-        $options: "i"
-      }
-    }
-
-    // filter the products
-    const filterCondition = {};
-
-    if (category) {
-      filterCondition.category = category;
-    }
-
-    // Price filter
-    if (price) {
-      filterCondition.price = {};
-      if (price.gte) filterCondition.price.$gte = Number(price.gte);
-      if (price.lte) filterCondition.price.$lte = Number(price.lte);
-    }
-
-    // Rating filter
-    if (rating) {
-      filterCondition.rating = {};
-      if (rating.gte) filterCondition.rating.$gte = Number(rating.gte);
-      if (rating.lte) filterCondition.rating.$lte = Number(rating.lte);
-    }
-
-    const finalCondition = {
-      ...searchProductCondition,
-      ...filterCondition,
-    };
-
-    const totalCount = await getTotalCountsOfProduct(finalCondition);
-    const totalPages = Math.ceil(totalCount / productPerPage);
-    const getProduct = await getAllProductsRepo(finalCondition, productPerPage, pageNumber, totalCount);
-    return res.status(200).json({
-      success: true,
-      totalItems: totalCount,
-      totalPage: totalPages,
-      currentpage: pageNumber,
-      getProduct
-    });
-
+    const products = await getAllProductsList();
+    return res.status(201).json({ success: true, products })
   } catch (err) {
     console.log(err);
     next(err);
   }
-};
+}
+
+// // getting the all product with pagination
+// export const getAllProducts = async (req, res, next) => {
+//   // Implement the functionality for search, filter and pagination this function.
+//   try {
+//     const { page, keyword, category, price, rating } = req.query;
+//     // set the product limit to 10 (one page contain the 10 product)
+//     const productPerPage = 10;
+//     const pageNumber = Number(page) || 1;
+//     const keywordSearch = keyword || "";
+
+//     // searching condition  (using "i" in the option to take all result of lower and upper case) 
+//     const searchProductCondition = {
+//       name: {
+//         $regex: keywordSearch,
+//         $options: "i"
+//       }
+//     }
+
+//     // filter the products
+//     const filterCondition = {};
+
+//     if (category) {
+//       filterCondition.category = category;
+//     }
+
+//     // Price filter
+//     if (price) {
+//       filterCondition.price = {};
+//       if (price.gte) filterCondition.price.$gte = Number(price.gte);
+//       if (price.lte) filterCondition.price.$lte = Number(price.lte);
+//     }
+
+//     // Rating filter
+//     if (rating) {
+//       filterCondition.rating = {};
+//       if (rating.gte) filterCondition.rating.$gte = Number(rating.gte);
+//       if (rating.lte) filterCondition.rating.$lte = Number(rating.lte);
+//     }
+
+//     const finalCondition = {
+//       ...searchProductCondition,
+//       ...filterCondition,
+//     };
+
+//     const totalCount = await getTotalCountsOfProduct(finalCondition);
+//     const totalPages = Math.ceil(totalCount / productPerPage);
+//     const getProduct = await getAllProductsRepo(finalCondition, productPerPage, pageNumber, totalCount);
+//     return res.status(200).json({
+//       success: true,
+//       totalItems: totalCount,
+//       totalPage: totalPages,
+//       currentpage: pageNumber,
+//       getProduct
+//     });
+
+//   } catch (err) {
+//     console.log(err);
+//     next(err);
+//   }
+// };
 
 // updating the existing product
 export const updateProduct = async (req, res, next) => {

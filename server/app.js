@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 import express from "express";
+import cors from "cors";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import path from "path";
@@ -20,7 +21,14 @@ const configPath = path.resolve(_dirname, "config", "uat.env");
 dotenv.config({ path: configPath });
 // console.log(process.env.PORT);
 const app = express();
+let corsOption = {
+  origin : "http://localhost:5173",
+  allowedHeaders : "*",
+  credentials : true
+}
+app.use(cors(corsOption));
 app.use(express.json());
+
 app.use(cookieParser());
 // configure routes
 app.use("/api/storefleet/product", productRoutes);

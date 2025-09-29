@@ -19,7 +19,7 @@ export function Navbar() {
         <div className="navbar-container">
             {/* Left side (Logo) */}
             <div className="navbar-logo" onClick={() =>{ navigate("/");}}>
-                <img src={appLogo} alt="logo" /> BusyBuy
+                <img src={appLogo} alt="logo" /> StoreFleet
             </div>
 
             {/* Right side (Links) */}
