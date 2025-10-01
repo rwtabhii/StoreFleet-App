@@ -1,6 +1,4 @@
-import { getDocs, doc, addDoc, collection, serverTimestamp,where, query, orderBy } from "firebase/firestore";
 
-import { db } from "../../firebaseinit";
 
 export async function getOrderApi(userId) {
   try {

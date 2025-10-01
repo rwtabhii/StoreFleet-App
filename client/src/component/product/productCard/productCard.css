@@ -69,3 +69,8 @@
 .addBtn:hover {
   background-color: #285e61;
 }
+.addBtn.out {
+  opacity: 0.6;
+  border-color: #ccc;
+  cursor: not-allowed; /* visual only */
+}

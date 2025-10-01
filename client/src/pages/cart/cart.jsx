@@ -7,22 +7,24 @@ import "./cart.css";
 
 import { useDispatch, useSelector } from "react-redux";
 import { authSelector } from "../../redux/authReducer/authReducer";
-import { fetchCartItems, selectAllCartItems ,cartSelector} from "../../redux/cartReducer/cartReducer";
+import { fetchCartItems, selectCart } from "../../redux/cartReducer/cartReducer";
 
 export function CartPage() {
   const dispatch = useDispatch();
 
   // Redux state
   const { userDetail } = useSelector(authSelector);
-  const cartItems = useSelector(selectAllCartItems);
-  const { isLoading, error } = useSelector(cartSelector);
-
+  const {items,isLoading,error} = useSelector(selectCart);
+  // console.log(items)
+ 
   // Fetch cart items when userDetail.uid is available
   useEffect(() => {
-    if (userDetail?.uid) {
-      dispatch(fetchCartItems(userDetail.uid));
+    // console.log(userDetail)
+    if (userDetail?.user._id) {
+      console.log("fetch invoke");
+      dispatch(fetchCartItems());
     }
-  }, [userDetail?.uid, dispatch]);
+  },[dispatch,userDetail?.uid]);
 
   // Show loader while fetching
   if (isLoading) {
@@ -45,9 +47,9 @@ export function CartPage() {
 
       {/* 🛍️ Cart Items */}
       <div className="cartList">
-        {cartItems.length > 0 ? (
-          cartItems.map((cartItem) => (
-            <CartCard key={cartItem.id} item={cartItem} />
+        {items.length > 0 ? (
+          items.map((cartItem) => (
+            <CartCard key={cartItem._id} item={cartItem} />
           ))
         ) : (
           <h2>Your Cart is Empty 🛒</h2>

@@ -1,57 +1,56 @@
-import { getDoc, doc, updateDoc, addDoc, collection,setDoc } from "firebase/firestore";
-import { createUserWithEmailAndPassword,signInWithEmailAndPassword } from "firebase/auth";
-import { db, auth } from "../../firebaseinit";
-
+import axios from "axios";
+axios.defaults.withCredentials = true;
 
 
 export async function registerUser(data) {
-    try {
-      // console.log(data)
-        const { name, email, password } = data;
-        // used for email and password validation and create account in the firebase authentication
-        const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
-        // console.log(userCredentials);
-        const user = userCredentials.user;
-
-        // store the data in the firestore
-        await setDoc(doc(db, "users", user.uid), {
-            name, email
-        });
-
-        console.log("User register successfully")
-    }
-    catch (err) {
-           console.error("Failed to register user:", err.code, err.message);
-    }
-}
-
-export async function loginUser(data) {
   try {
-    const {email,password} = data
-    // Authenticate with Firebase Auth
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    const authUser = userCredential.user;
+    const { name, email, password } = data;
 
-    // Fetch profile from Firestore
-    const userDoc = await getDoc(doc(db, "users", authUser.uid));
+    // Call your backend API to register the user
+    const response = await axios.post("/api/storefleet/user/signup", {
+      name,
+      email,
+      password,
+    });
 
-    // Merge Auth + Firestore data
-    if (userDoc.exists()) {
-      return {
-        uid: authUser.uid,
-        email: authUser.email,
-        emailVerified: authUser.emailVerified
-      };
-    } else {
-      // ❌ Stop login if Firestore profile missing
-      throw new Error("User profile not found in Firestore.");
-    }
-  } catch (error) {
-    console.error("Login failed:", error.message);
-    throw error;
+    console.log("User registered successfully:", response.data);
+    return response.data; // return response if needed
+  }
+  catch (err) {
+    console.error("Failed to register user:", err.code, err.message);
   }
 }
 
-export function logoutUser(){
-  
-}
+export async function loginUser(data) {
+    try {
+      const { email, password } = data;
+
+      const response = await axios.post(
+        "/api/storefleet/user/login",
+        { email, password },
+        { withCredentials: true } // ensure cookie is included
+      );
+
+      console.log("Login successful:", response.data);
+      return response.data; // no need to store token
+    } catch (error) {
+      console.error("Login failed:", error.message);
+      throw error;
+    }
+  }
+
+  export async function logoutUser() {
+    try {
+      const response = await axios.post(
+        "/api/storefleet/user/logout",
+        {},
+        { withCredentials: true }
+      );
+
+      console.log("Logout successful:", response.data);
+      return response.data;
+    } catch (error) {
+      console.error("Logout failed:", error.response?.data || error.message);
+      throw error;
+    }
+  }

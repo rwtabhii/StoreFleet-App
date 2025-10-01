@@ -1,33 +1,24 @@
-import { createSlice, createEntityAdapter, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
   getCartItemApi,
+  addCartItemApi,
   removeCartItemApi,
   updateCartItemApi,
-  addCartItemApi,
 } from "../../api/cart/cart";
 
-// 1️⃣ Adapter
-const cartAdapter = createEntityAdapter({
-  selectId: (item) => item.id,
-});
-
-// 2️⃣ Initial state
-const initialState = cartAdapter.getInitialState({
-  isLoading: false,
-  error: null,
-});
-
-// 3️⃣ Async thunks
+// -------------------- Async Thunks --------------------
 
 // Fetch all cart items
 export const fetchCartItems = createAsyncThunk(
   "cart/fetchCartItems",
-  async (userId, thunkAPI) => {
+  async (_, thunkAPI) => {
     try {
-      const cartItems = await getCartItemApi(userId);
-      return cartItems;
+      console.log("thunk")
+      const res = await getCartItemApi();
+      // Make sure we return just the array of items
+      return res;
     } catch (err) {
-      return thunkAPI.rejectWithValue(err.message || "Failed to fetch cart items");
+      return thunkAPI.rejectWithValue(err.response?.data?.message || "Failed to fetch cart items");
     }
   }
 );
@@ -37,10 +28,10 @@ export const addCartItemAsync = createAsyncThunk(
   "cart/addCartItemAsync",
   async (item, thunkAPI) => {
     try {
-      const addedItem = await addCartItemApi(item);
-      return addedItem; // should return the saved item with id
+      const res = await addCartItemApi(item);
+      return res.cartItem; // Expect backend to send added item
     } catch (err) {
-      return thunkAPI.rejectWithValue(err.message || "Failed to add cart item");
+      return thunkAPI.rejectWithValue(err.response?.data?.message || "Failed to add cart item");
     }
   }
 );
@@ -48,91 +39,107 @@ export const addCartItemAsync = createAsyncThunk(
 // Remove a cart item
 export const removeCartItemAsync = createAsyncThunk(
   "cart/removeCartItemAsync",
-  async (item, thunkAPI) => {
+  async (id, thunkAPI) => {
     try {
-      await removeCartItemApi(item);
-      return item.id;
+      await removeCartItemApi(id);
+      return id;
     } catch (err) {
-      return thunkAPI.rejectWithValue(err.message || "Failed to remove cart item");
+      return thunkAPI.rejectWithValue(err.response?.data?.message || "Failed to remove cart item");
     }
   }
 );
 
-// Update quantity of a cart item
+// Update quantity
 export const updateCartItemAsync = createAsyncThunk(
   "cart/updateCartItemAsync",
   async ({ id, type }, thunkAPI) => {
     try {
-      await updateCartItemApi(id, type);
-      return { id, type };
+      console.log("thunk invoke update")
+      const res = await updateCartItemApi(id, type);
+      console.log("thunk return", res)
+      return res; // Expect updated item
     } catch (err) {
-      return thunkAPI.rejectWithValue(err.message || "Failed to update cart item");
+      return thunkAPI.rejectWithValue(err.response?.data?.message || "Failed to update cart item");
     }
   }
 );
 
-// 4️⃣ Slice
+// -------------------- Slice --------------------
+
 const cartSlice = createSlice({
   name: "cart",
-  initialState,
+  initialState: {
+    items: [],
+    isLoading: false,
+    error: null,
+  },
   reducers: {
     clearCart: (state) => {
-      cartAdapter.removeAll(state);
+      state.items = [];
     },
+    updateQuantityOptimistic: (state, action) => {
+      const { id, type } = action.payload;
+      console.log(action.payload)
+      const itemIndex = state.items.findIndex(i => i._id === id);
+
+      if (itemIndex !== -1) {
+        const item = state.items[itemIndex];
+
+        // Save previous quantity for rollback
+        if (item._previousQuantity === undefined) {
+          item._previousQuantity = item.quantity;
+        }
+
+        if (type === "increment") {
+          item.quantity += 1;
+        } else if (type === "decrement") {
+          if (item.quantity > 1) {
+            item.quantity -= 1;
+          } else {
+            // Remove item from state if quantity goes to 0
+            state.items.splice(itemIndex, 1);
+          }
+        }
+      }
+    },
+    removeCartItemOptimistic: (state,action)=>{
+     state.items = state.items.filter((item) => item._id !== action.payload);
+    }
+
+    
   },
   extraReducers: (builder) => {
     builder
-      // Fetch Cart
+      // Fetch
       .addCase(fetchCartItems.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
       .addCase(fetchCartItems.fulfilled, (state, action) => {
         state.isLoading = false;
-        cartAdapter.setAll(state, action.payload);
+        state.items = action.payload;
       })
       .addCase(fetchCartItems.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       })
 
-      // Add Cart Item
+      // Add
       .addCase(addCartItemAsync.fulfilled, (state, action) => {
-        cartAdapter.addOne(state, action.payload);
+        state.items.push(action.payload);
       })
 
-      // Remove Cart Item
-      .addCase(removeCartItemAsync.fulfilled, (state, action) => {
-        cartAdapter.removeOne(state, action.payload);
-      })
+      // Remove
+      // .addCase(removeCartItemAsync.fulfilled, (state, action) => {
+      //   state.items = state.items.filter((item) => item._id !== action.payload);
+      // })
 
-      // Update Quantity
-      .addCase(updateCartItemAsync.fulfilled, (state, action) => {
-        const { id, type } = action.payload;
-        const item = state.entities[id];
-        if (!item) return;
-
-        if (type === "increment") {
-          item.quantity += 1;
-        } else if (type === "decrement") {
-          if (item.quantity <= 1) {
-            // remove if quantity would go to 0
-            cartAdapter.removeOne(state, id);
-          } else {
-            item.quantity -= 1;
-          }
-        }
-      });
+      
   },
 });
 
-// 5️⃣ Export selectors & reducer
-export const {
-  selectAll: selectAllCartItems,
-  selectById: selectCartItemById,
-  selectIds: selectCartItemIds,
-} = cartAdapter.getSelectors((state) => state.cart);
+// -------------------- Exports --------------------
 
-export const { clearCart } = cartSlice.actions;
+export const { clearCart,updateQuantityOptimistic,removeCartItemOptimistic } = cartSlice.actions;
 export const cartReducer = cartSlice.reducer;
-export const cartSelector = (state) => state.cart;
+export const selectCart = (state) => state.cart;

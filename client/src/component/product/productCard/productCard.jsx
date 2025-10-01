@@ -13,20 +13,20 @@ export function ProductCard({ product }) {
   const dispatch = useDispatch()
 
   const addToCart = (product) => {
+    if (product.stock === 0) {
+      return toast.error("Product is out of stock");
+    }
+    console.log(product)
     const item = {
-      userId: userDetail.uid,
-      title: product.title,
-      quantity: 1,
-      price: product.price,
-      image: product.image
+      productId : product._id
     }
     // console.log(item);
     try {
-  dispatch(addCartItemAsync(item));
-  toast.success("Product added successfully");
-} catch (error) {
-  toast.error("Error adding product");
-}
+      dispatch(addCartItemAsync(item));
+      toast.success("Product added successfully");
+    } catch (error) {
+      toast.error("Error adding product");
+    }
   }
 
   return (
@@ -41,10 +41,17 @@ export function ProductCard({ product }) {
 
       <div className="productDetails">
         <p className="productName">{product.title}</p>
-        <p className="productPrice">₹ {product.price}</p>
-
-        <button className="addBtn" onClick={() => login ? addToCart(product) : navigate("/login")}>
-          Add To Cart
+        <div className="price-quantity">
+          <p className="productPrice">₹ {product.price}</p>
+          <p className="product-quantity"> {product.stock === 0
+            ? "Currently unavailable"
+            : product.stock > 5
+              ? "In stock"
+              : `Only few left: ${product.stock}`}</p>
+        </div>
+        <button className={`addBtn ${product.stock === 0 ? "out" : ""}`}
+          onClick={() => login ? addToCart(product) : navigate("/login")}>
+          {product.stock === 0 ? "Out of Stock" : "Add To Cart"}
         </button>
       </div>
     </div>

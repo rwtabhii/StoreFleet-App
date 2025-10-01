@@ -12,10 +12,11 @@ import {
 import userRoutes from "./src/user/routes/user.routes.js";
 import cookieParser from "cookie-parser";
 import orderRoutes from "./src/order/routes/order.routes.js";
+import cartRoutes from "./src/cart/route/cart.routes.js"
 // this _filename will give the cwd where the file belong to 
 const _filename = fileURLToPath(import.meta.url);
 const _dirname = dirname(_filename);
-console.log(path.resolve());
+// console.log(path.resolve());
 // console.log(_dirname);
 const configPath = path.resolve(_dirname, "config", "uat.env");
 dotenv.config({ path: configPath });
@@ -33,6 +34,7 @@ app.use(cookieParser());
 // configure routes
 app.use("/api/storefleet/product", productRoutes);
 app.use("/api/storefleet/user", userRoutes);
+app.use("/api/storefleet/cart",cartRoutes)
 app.use("/api/storefleet/order", orderRoutes);
 // errorHandlerMiddleware
 app.use(errorHandlerMiddleware);

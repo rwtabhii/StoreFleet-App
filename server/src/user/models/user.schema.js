@@ -22,18 +22,11 @@ const userSchema = new mongoose.Schema({
     required: [true, "Please enter your password"],
     select: false,
   },
-  profileImg: {
-    public_id: {
-      type: String,
-      required: true,
-      default: "1234567890",
-    },
-    url: {
+  profileImg:{
       type: String,
       required: true,
       default: "this is dummy avatar url",
     },
-  },
   role: {
     type: String,
     default: "user",
