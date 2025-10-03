@@ -6,8 +6,10 @@ import { orderSelector } from "../../../redux/orderReducer/orderReducer"
 
 
 
-export function OrderList() {
+export function OrderList({order}) {
    const {orders} = useSelector(orderSelector)
+    // console.log(orders, "orders in orderlist");
+
     return (<>        {
         orders?.map((o) => (
             <OrderTable key={o.id} order={o} />

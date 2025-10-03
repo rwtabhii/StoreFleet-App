@@ -72,3 +72,8 @@ export const deleteCartProduct = async (userId, cartId) => {
 
     return deletedItem;
 };
+
+export const clearCart = async (userId) => {
+  const result = await cartModel.deleteMany({ user: userId });
+  return result.deletedCount; // number of deleted items
+};

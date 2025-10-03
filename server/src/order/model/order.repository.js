@@ -3,6 +3,7 @@ import productModel from "../../product/model/product.schema.js"
 
 export const createNewOrderRepo = async (data) => {
   // 1. Loop through ordered items and reduce stock
+  console.log("repo", data)
   for (const item of data.orderedItems) {
     const product = await productModel.findById(item.product);
 
@@ -34,7 +35,7 @@ export const createNewOrderRepo = async (data) => {
   // 2. Save the order
   const newOrder = new OrderModel(data);
   await newOrder.save();
-
+console.log(newOrder,"neworder")
   return newOrder;
 
 };

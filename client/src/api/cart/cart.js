@@ -27,14 +27,13 @@ export async function addCartItemApi(data) {
 
 export async function updateCartItemApi(itemId, type) {
     try {
-        console.log("api upfate invoke")
         const response = await axios.put(
             `/api/storefleet/cart/${itemId}`, // productId goes here
             { type },                           // send the action type (increment/decrement)
             { withCredentials: true }           // if you're using cookies for auth
         );
 
-     //  console.log("Cart updated:", response.data.cartItem);
+        //  console.log("Cart updated:", response.data.cartItem);
         return response.data.cartItem;
     } catch (err) {
         console.error("Error updating cart item:", err);
@@ -42,27 +41,25 @@ export async function updateCartItemApi(itemId, type) {
     }
 }
 export async function removeCartItemApi(itemId) {
-  try {
-    const removeItem = await axios.delete(`/api/storefleet/cart/${itemId}`,{
+    try {
+        const removeItem = await axios.delete(`/api/storefleet/cart/${itemId}`, {
+            withCredentials: true
+        });
+        return removeItem
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+export async function clearCartApi() {
+    try { const res = await axios.delete("/api/storeFleet/cart/user/emptycart",{
         withCredentials: true
     });
-    return removeItem
-  } catch (err) {
-    console.log(err)
-  }
+    return res;
+     }
+     catch(err){
+        console.log(err);
+     }
+
 }
 
-export async function clearCartApi(userId) {
-    // try {
-    //     const q = query(collection(db, "cart"), where("userId", "==", userId));
-    //     const snapshot = await getDocs(q);
-
-    //     const promises = snapshot.docs.map((doc) => deleteDoc(doc.ref));
-    //     await Promise.all(promises);
-
-    //     return true;
-    // } catch (error) {
-    //     console.error("Error clearing cart:", error);
-    //     throw error;
-    // }
-}
