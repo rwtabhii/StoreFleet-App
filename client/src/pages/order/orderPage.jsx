@@ -10,10 +10,11 @@ export function OrderPage() {
   const dispatch = useDispatch();
   const { userDetail } = useSelector(authSelector);
   const { orders, isLoading, error } = useSelector(orderSelector);
+  // console.log(orders, "orders in orderpage");
 
   useEffect(() => {
-    if (userDetail?.uid) {
-      dispatch(fetchOrders(userDetail.uid)); // fetch orders via thunk
+    if (userDetail?.user._id) {
+      dispatch(fetchOrders()); // fetch orders via thunk
     }
   }, [userDetail?.uid, dispatch]);
 
@@ -28,7 +29,7 @@ export function OrderPage() {
       ) : (
         <div className="order-container">
           <div className="heading">Your Orders :</div>
-          <OrderList orders={orders} />
+            <OrderList  />
         </div>
       )}
     </>

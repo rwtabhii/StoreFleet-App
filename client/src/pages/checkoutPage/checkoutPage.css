@@ -1,0 +1,76 @@
+/* Container for the whole checkout page */
+.checkout-container {
+  background-color: #f7f7f7;
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+/* Grid layout for form and order summary */
+.checkout-grid {
+  display: grid;
+  max-width: 1100px;
+  margin: 0 auto;
+  grid-template-columns: 2fr 1fr; /* 2 parts form, 1 part summary */
+  gap: 30px;
+}
+
+/* Left side - Checkout Form */
+.checkout-left {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Heading of the checkout form */
+.checkout-heading {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Right side - Checkout Summary */
+.checkout-right {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Optional: style h3 or section titles inside CheckoutItem */
+.checkout-right .section-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+/* Optional: individual items in summary */
+.checkout-right .summary-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #555;
+}
+
+/* Totals section */
+.checkout-right .summary-totals {
+  margin-top: 20px;
+  border-top: 1px solid #ddd;
+  padding-top: 15px;
+}
+
+.checkout-right .summary-line {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-weight: 500;
+  color: #333;
+}
+
+.checkout-right .summary-line.total {
+  font-size: 18px;
+  font-weight: 700;
+}

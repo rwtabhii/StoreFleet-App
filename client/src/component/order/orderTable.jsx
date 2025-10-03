@@ -1,9 +1,10 @@
 import "./orderTable.css"
 
 export function OrderTable({ order }) {
+  
     return (
         <div className="orderTable">
-            <div className="order-date">Order on : {order.createdAt.toDate().toLocaleDateString()}</div>
+            <div className="order-date">Order on : {new Date(order.createdAt).toLocaleDateString()}</div>
             {/* ordertable */}
             <table class="Order-Table">
                 <thead>
@@ -15,9 +16,9 @@ export function OrderTable({ order }) {
                     </tr>
                 </thead>
                 <tbody>
-                    {order.items.map((item) => (
+                    {order.orderedItems.map((item) => (
                         <tr key={item.id}>
-                            <td>{item.title}</td>
+                            <td>{item.name}</td>
                             <td>₹ {item.price}</td>
                             <td>{item.quantity}</td>
                             <td>₹ {item.price * item.quantity}</td>
@@ -27,7 +28,15 @@ export function OrderTable({ order }) {
                 <tfoot>
                     <tr className="totalPrice">
                         <td colspan="3"><strong>Total:</strong></td>
-                        <td><strong>{order.totalAmount}</strong></td>
+                        <td><strong>{order.totalPrice}</strong></td>
+                    </tr>
+                      <tr className="OrderStatus">
+                        <td colspan="3"><strong>Order Status:</strong></td>
+                        <td><strong>{order.orderStatus}</strong></td>
+                    </tr>
+                      <tr className="PaymentMethod">
+                        <td colspan="3"><strong>Payment Mehtod:</strong></td>
+                        <td><strong>{order.paymentInfo.type}</strong></td>
                     </tr>
                 </tfoot>
             </table>

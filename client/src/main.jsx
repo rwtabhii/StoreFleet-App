@@ -12,6 +12,7 @@ import { OrderPage } from './pages/order/orderPage.jsx';
 import { ErrorPage } from './pages/errorPage/errorPage.jsx';
 import { ProtectRoute } from './component/protectRoute/protectedRoute.jsx';
 import { store } from './store.jsx';
+import { Checkout } from './pages/checkoutPage/checkoutPage.jsx';
 
 // ✅ Define all app routes
 const router = createBrowserRouter([
@@ -26,7 +27,8 @@ const router = createBrowserRouter([
 
       // ✅ Protected routes - only accessible to authenticated users
       { path: "cart", element: <ProtectRoute><CartPage /></ProtectRoute>, errorElement: <ErrorPage /> },
-      { path: "order", element: <ProtectRoute><OrderPage /></ProtectRoute>, errorElement: <ErrorPage /> }
+      { path: "order", element: <ProtectRoute><OrderPage /></ProtectRoute>, errorElement: <ErrorPage /> },
+      { path: "checkout", element: <ProtectRoute><Checkout /></ProtectRoute>, errorElement: <ErrorPage /> }
     ]
   }
 ]);

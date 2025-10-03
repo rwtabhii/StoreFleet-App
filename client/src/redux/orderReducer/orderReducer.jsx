@@ -11,9 +11,9 @@ const initialState = {
 //  Async thunk to fetch orders
 export const fetchOrders = createAsyncThunk(
   "orders/fetchOrders",
-  async (userId, thunkAPI) => {
+  async (_, thunkAPI) => {
     try {
-      const orders = await getOrderApi(userId);
+      const orders = await getOrderApi();
       return orders;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.message || "Something went wrong");

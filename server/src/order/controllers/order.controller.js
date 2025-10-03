@@ -13,16 +13,19 @@ import { ErrorHandler } from "../../../utils/errorHandler.js";
 export const createNewOrder = async (req, res, next) => {
   // Write your code here for placing a new order
   try {
+    // console.log(req.body);
     const orderData = req.body;
     orderData.user = req.user._id;
     orderData.paidAt = new Date().toISOString();
     const newOrder = await createNewOrderRepo(orderData);
+    console.log("nweorder Controller", newOrder)
     return res.status(201).json({
       success: true,
       order: newOrder
     });
   }
   catch (err) {
+    console.log(err);
     next(err);
   }
 };

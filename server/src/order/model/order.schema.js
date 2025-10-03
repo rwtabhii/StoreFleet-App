@@ -55,9 +55,13 @@ const orderSchema = new mongoose.Schema({
     required: true,
   },
   paymentInfo: {
-    id: {
-      type: String,
-      required: true,
+    // id: {
+    //   type: String,
+    //   required: true,
+    // },
+    type:  {
+     type: String,
+     require: true
     },
     status: {
       type: Boolean,

@@ -1,5 +1,5 @@
 import "./cartTotal.css"
-
+import { useNavigate } from "react-router-dom";
 import { addOrderApi } from "../../../api/order/orderApi";
 import { toast } from "react-toastify";
 import { clearCartApi } from "../../../api/cart/cart";
@@ -12,7 +12,7 @@ import { clearCart } from "../../../redux/cartReducer/cartReducer";
 export function CartTotal() {
   const dispatch = useDispatch()
   const { items } = useSelector(selectCart)
-  const { userDetail } = useSelector(authSelector)
+  const navigate = useNavigate();
   // Calculate total price
   // console.log(items)
  const totalPrice = items.reduce(
@@ -20,12 +20,16 @@ export function CartTotal() {
   0
 );
 
-  const addOrder = async (data) => {
+  const handleCheckoutItems = async (data) => {
     try {
-      await addOrderApi(data);
-      await clearCartApi();
-      dispatch(clearCart())
+      if(totalPrice>0){
+      // await addOrderApi(data);
+      navigate("/checkout")
       toast.success("Order Competed");
+      }
+      else{
+        toast.error("Your Cart is Empty")
+      }
     }
     catch (error) {
       console.log(error)
@@ -36,7 +40,7 @@ export function CartTotal() {
   return (
     <div className="cartTotal">
       <p>Total: ₹{totalPrice}</p>
-      <button className="purchase" onClick={() => addOrder(items)}>Purchase</button>
+      <button className="purchase" onClick={() => handleCheckoutItems(items)}>Proceed to Checkout</button>
     </div>
   );
 }
