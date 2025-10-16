@@ -15,12 +15,50 @@ export async function getOrderApi() {
 
 export async function addOrderApi(data) {
   try {
-    const res = await axios.post("/api/storefleet/order/new",data, {
+    const res = await axios.post("/api/storefleet/order/new", data, {
       withCredential: true
     })
     return res;
   } catch (error) {
     console.error("Error adding order:", error);
     throw error;
+  }
+}
+
+export const showAllOrders = async () => {
+  try {
+    const res = await axios.get("/api/storefleet/order/orders/placed", {
+      withCredentials: true
+    });
+    console.log(res)
+    return res.data.AllOrders;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
+
+export const updateOrderApi = async (id, update) => {
+  try {
+    const res = await axios.put(`/api/storefleet/order/update/${id}`, update
+      , {
+        withCredential: true
+      })
+
+    return res.data
+  } catch (err) {
+    throw err;
+  }
+}
+
+export const getUserOrderByAdmin = async (id) => {
+  try {
+    const res = await axios.get(`/api/storefleet/order/user/allorder/${id}`, {
+      withCredentials: true
+    })
+    console.log("apicall",res);
+    return res.data;
+  } catch (err) {
+  throw err;
   }
 }

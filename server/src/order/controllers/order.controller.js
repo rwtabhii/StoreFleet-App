@@ -4,6 +4,7 @@
 import {
   createNewOrderRepo,
   getAllOrdersRepo,
+  getAllUserOrdersRepo,
   getMyAllOrdersRepo,
   getSingleOrderRepo,
   updateOrderRepo
@@ -88,21 +89,39 @@ export const getAllOrders = async (req, res, next) => {
 };
 
 // for update the orderstatus done by the admin 
-export const updateOrder = async (req, res, next) =>{
+export const updateOrder = async (req, res, next) => {
   try {
-   const status = req.body.orderStatus;
-   const orderId = req.params.id;
-   const searchOrder = await updateOrderRepo(orderId,status);
-   if(!searchOrder){
-    return next(new ErrorHandler(404,"Order Not Found"));
-   }
-   return res.status(200).json({
-    success : true,
-    message : "Order Update Successfully"
-   });
+    const data = req.body;
+    const orderId = req.params.id
+    const searchOrder = await updateOrderRepo(orderId, data);
+    if (!searchOrder) {
+      return next(new ErrorHandler(404, "Order Not Found"));
+    }
+    return res.status(200).json({
+      success: true,
+      message: "Order Update Successfully"
+    });
   } catch (err) {
     next(err);
   }
 
 }
+
+export const getUserOrders = async (req, res, next) => {
+  try {
+    const userId = req.params.id; // or req.user._id if using JWT auth
+    
+ console.log(userId)
+    const orders = await getAllUserOrdersRepo(userId);
+
+    if (!orders || orders.length === 0) {
+      return res.status(404).json({ success: false, message: "No orders found for this user" });
+    }
+  //  console.log(orders, " backend order work")
+    res.status(200).json({ success: true, orders });
+  } catch (err) {
+    console.error("Error fetching user orders:", err);
+    next(err)
+  }
+};
 

@@ -18,7 +18,7 @@ export const createNewOrderRepo = async (data) => {
     }
 
     if (product.stock < item.quantity) {
-     return {
+      return {
         success: false,
         error: {
           msg: "Item is not in Stock",
@@ -35,7 +35,7 @@ export const createNewOrderRepo = async (data) => {
   // 2. Save the order
   const newOrder = new OrderModel(data);
   await newOrder.save();
-console.log(newOrder,"neworder")
+  console.log(newOrder, "neworder")
   return newOrder;
 
 };
@@ -55,8 +55,13 @@ export const getAllOrdersRepo = async () => {
   return getAllOrder;
 }
 // only admin can access this method to update the order status of the user 
-export const updateOrderRepo = async (orderId, status) => {
-  const updateOrderStatus = await OrderModel.findByIdAndUpdate(orderId, { orderStatus: status }
+export const updateOrderRepo = async (orderId, data) => {
+  const updateOrderStatus = await OrderModel.findByIdAndUpdate(orderId,{$set : data}
     , { new: true });
   return updateOrderStatus;
 }
+// get all order of user seeing by admin 
+export const getAllUserOrdersRepo = async (userId) => {
+  const getAllOrder = await OrderModel.find({ user: userId });
+  return getAllOrder;
+};

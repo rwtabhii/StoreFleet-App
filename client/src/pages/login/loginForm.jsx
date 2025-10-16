@@ -69,6 +69,9 @@ const checkUserCred = (e) => {
           <NavLink to="/register" className="link">
             <p className="switchText">Or Sign Up instead</p>
           </NavLink>
+          <NavLink to="/forget-password" className="link">
+            <p className="switchText">Forget Password</p>
+          </NavLink>
         </form>
       </div>
     );

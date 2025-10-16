@@ -1,0 +1,27 @@
+.all-user-page {
+  padding: 20px;
+  background: #f7f9fc;
+  min-height: 100vh;
+}
+
+.page-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 25px;
+  color: #2c3e50;
+}
+
+.user-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.no-user-msg {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #555;
+}

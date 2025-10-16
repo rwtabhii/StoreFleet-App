@@ -13,18 +13,30 @@ import { ErrorPage } from './pages/errorPage/errorPage.jsx';
 import { ProtectRoute } from './component/protectRoute/protectedRoute.jsx';
 import { store } from './store.jsx';
 import { Checkout } from './pages/checkoutPage/checkoutPage.jsx';
+import { ForgetPassword } from './pages/forgetPasswordPage/forgetPasswordPage.jsx';
+import { ResetPassword } from './pages/resetPasswordPage/resetPasswordPage.jsx';
+import { UserDashboard } from './pages/userDashboard/userDashboard.jsx';
+import { AllUserPage } from './pages/allUser/allUserPage.jsx';
+import { AllOrderPage } from './pages/allOrder/allOrderPage.jsx';
+import { UserOrderPage } from './pages/userOrder/userOrderPage.jsx';
 
 // ✅ Define all app routes
 const router = createBrowserRouter([
   {
-    path: '/',                          // Root route
-    element: <App />,                   // Main layout (Navbar + Outlet)
-    errorElement: <ErrorPage />,        // Error fallback page
+    path: '/',                              // Root route
+    element: <App />,                       // Main layout (Navbar + Outlet)
+    errorElement: <ErrorPage />,            // Error fallback page 
     children: [
-      { index: true, element: <Home />, errorElement: <ErrorPage /> }, // Homepage
-      { path: "login", element: <LoginForm />, errorElement: <ErrorPage /> }, // Login page
-      { path: "register", element: <RegisterPage />, errorElement: <ErrorPage /> }, // Register page
-
+      { index: true, element: <Home />, errorElement: <ErrorPage /> },
+      { path: "login", element: <LoginForm />, errorElement: <ErrorPage /> },
+      { path: "register", element: <RegisterPage />, errorElement: <ErrorPage /> },
+      { path: "dashboard", element: <UserDashboard />, errorElement: <ErrorPage /> },
+      { path: "all-users", element: <ProtectRoute><AllUserPage /></ProtectRoute>, errorElement: <ErrorPage /> },
+      {path: "user/:id/orders", element: <ProtectRoute><UserOrderPage /></ProtectRoute>,
+        errorElement: <ErrorPage />  },
+      { path: "all-orders", element: <ProtectRoute><AllOrderPage /></ProtectRoute>, errorElement: <ErrorPage /> },
+      { path: "forget-password", element: <ForgetPassword />, errorElement: <ErrorPage /> },
+      { path: "reset-password/:token", element: <ResetPassword />, errorElement: <ErrorPage /> },
       // ✅ Protected routes - only accessible to authenticated users
       { path: "cart", element: <ProtectRoute><CartPage /></ProtectRoute>, errorElement: <ErrorPage /> },
       { path: "order", element: <ProtectRoute><OrderPage /></ProtectRoute>, errorElement: <ErrorPage /> },

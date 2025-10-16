@@ -1,6 +1,6 @@
 import express from "express";
-import { createNewOrder,getSingleOrder,getMyAllOrders,getAllOrders,updateOrder } from "../controllers/order.controller.js";
-import { auth ,authByUserRole} from "../../../middlewares/auth.js";
+import { createNewOrder, getSingleOrder, getMyAllOrders, getAllOrders, updateOrder, getUserOrders } from "../controllers/order.controller.js";
+import { auth, authByUserRole } from "../../../middlewares/auth.js";
 
 const router = express.Router();
 // post
@@ -11,5 +11,7 @@ router.route("/my/orders").get(auth, getMyAllOrders);
 router.route("/orders/placed").get(auth, authByUserRole("admin"), getAllOrders);
 //put
 router.route("/update/:id").put(auth, authByUserRole("admin"), updateOrder);
+
+router.route("/user/allorder/:id").get(auth, authByUserRole("admin"), getUserOrders)
 
 export default router;
