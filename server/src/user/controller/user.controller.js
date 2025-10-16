@@ -136,6 +136,7 @@ export const getUserDetails = async (req, res, next) => {
 };
 // update user password
 export const updatePassword = async (req, res, next) => {
+  console.log(req.body);
   const { currentPassword, newPassword, confirmPassword } = req.body;
   try {
     if (!currentPassword) {
@@ -181,7 +182,8 @@ export const getAllUsers = async (req, res, next) => {
   try {
     const allUsers = await getAllUsersRepo();
     res.status(200).json({ success: true, allUsers });
-  } catch (error) {
+  }
+  catch (error) {
     return next(new ErrorHandler(500, error));
   }
 };
@@ -220,8 +222,9 @@ export const deleteUser = async (req, res, next) => {
 export const updateUserProfileAndRole = async (req, res, next) => {
   // Write your code here for updating the roles of other users by admin
   try {
+    // console.log(req.body)
     const { name, email, role } = req.body;
-    const id = req.body.params;
+    const id = req.params.id;
     // we are using this because if admin wants to change the any one value or the all three value
     const updateData = {};
     if (name) updateData.name = name;

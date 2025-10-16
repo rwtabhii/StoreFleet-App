@@ -19,7 +19,7 @@ export const findUserForPasswordResetRepo = async (hashtoken) => {
 };
 
 export const updateUserProfileRepo = async (_id, data) => {
-  return await UserModel.findOneAndUpdate(_id, data, {
+  return await UserModel.findOneAndUpdate({_id}, data, {
     new: true,
     runValidators: true,
     useFindAndModify: false,
@@ -36,4 +36,9 @@ export const deleteUserRepo = async (_id) => {
 
 export const updateUserRoleAndProfileRepo = async (_id, data) => {
   // Write your code here for updating the roles of other users by admin
+  try {
+
+  } catch (error) {
+    console.log(error);
+  }
 };
