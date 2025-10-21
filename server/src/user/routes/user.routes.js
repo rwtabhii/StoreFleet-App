@@ -17,6 +17,7 @@ import {
   userLogin,
 } from "../controller/user.controller.js";
 import { auth, authByUserRole } from "../../../middlewares/auth.js";
+import passport from "passport";
 
 const router = express.Router();
 
@@ -33,6 +34,26 @@ router.route("/profile/update").put(auth, updateUserProfile);
 // User GET Routes 
 router.route("/details").get(auth, getUserDetails);
 router.route("/logout").get(auth, logoutUser);
+
+// OAUTH implement
+// 1. user go to google login 
+router.route("/auth/google").get(passport.authenticate("google", { scope: ["profile", "email"] }));
+// 2. google redirect back
+router.route(
+  "/auth/google/callback").get(
+    passport.authenticate("google", { failureRedirect: "http://localhost:5173/login" }),
+    (req, res) => {
+      // Create your own JWT token for this logged-in user
+      const token = jwt.sign(
+        { id: req.user._id, email: req.user.email },
+        process.env.JWT_Secret,
+        { expiresIn: process.env.JWT_Expire }
+      );
+
+      // Redirect to frontend with the token
+      res.redirect(`http://localhost:5173`);
+    }
+  );
 
 // Admin GET Routes
 router.route("/admin/allusers").get(auth, authByUserRole("admin"), getAllUsers);

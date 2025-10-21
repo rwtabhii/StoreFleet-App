@@ -3,6 +3,7 @@ import validator from "validator";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
+import env from "../../../dotenv.js";
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -19,19 +20,19 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: [true, "Please enter your password"],
-    select: false,
+    select: false
   },
-  profileImg:{
-      type: String,
-      required: true,
-      default: "this is dummy avatar url",
-    },
+  profileImg: {
+    type: String,
+    required: true,
+    default: "this is dummy avatar url",
+  },
   role: {
     type: String,
     default: "user",
     enum: ["user", "admin"],
   },
+  googleId: { type: String }, // <-- added for OAuth users
   resetPasswordToken: String,
   resetPasswordExpire: Date,
 });
@@ -41,7 +42,7 @@ userSchema.pre("save", async function (next) {
   // console.log(this.password);
   try {
     // avoid rehashing the password
-    if(!this.isModified("password")){
+    if (!this.isModified("password")) {
       return next();
     }
     const hashPass = await bcrypt.hash(this.password, 12);
@@ -57,8 +58,8 @@ userSchema.pre("save", async function (next) {
 
 // JWT Token
 userSchema.methods.getJWTToken = function () {
-  return jwt.sign({ id: this._id }, process.env.JWT_Secret, {
-    expiresIn: process.env.JWT_Expire,
+  return jwt.sign({ id: this._id }, env.JWT_SECRET, {
+    expiresIn: env.JWT_EXPIRE,
   });
 };
 // user password compare
@@ -75,7 +76,7 @@ userSchema.methods.getResetPasswordToken = async function () {
     .createHash("sha256")
     .update(resetToken)
     .digest("hex");
-    // console.log(this.resetPasswordToken + "hashed token")
+  // console.log(this.resetPasswordToken + "hashed token")
 
   this.resetPasswordExpire = Date.now() + 10 * 60 * 1000;
 

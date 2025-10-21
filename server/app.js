@@ -1,42 +1,72 @@
-import dotenv from "dotenv";
+import env from "./dotenv.js";
 import express from "express";
+
 import cors from "cors";
-import { dirname } from "path";
+import path, { dirname } from "path";
+import session from "express-session";
+import passport from "passport";
+import cookieParser from "cookie-parser";
 import { fileURLToPath } from "url";
-import path from "path";
+
+// 🟢 Load environment variables FIRST
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+// const configPath = path.resolve(__dirname, "config", "uat.env");
+// console.log("path is ",configPath)
+// dotenv.config({ path: configPath });
+// 🟢 Import routes AFTER dotenv is loaded
 import productRoutes from "./src/product/routes/product.routes.js";
+import userRoutes from "./src/user/routes/user.routes.js";
+import orderRoutes from "./src/order/routes/order.routes.js";
+import cartRoutes from "./src/cart/route/cart.routes.js";
 import {
   errorHandlerMiddleware,
-  handleUncaughtError,
 } from "./middlewares/errorHandlerMiddleware.js";
-import userRoutes from "./src/user/routes/user.routes.js";
-import cookieParser from "cookie-parser";
-import orderRoutes from "./src/order/routes/order.routes.js";
-import cartRoutes from "./src/cart/route/cart.routes.js"
-// this _filename will give the cwd where the file belong to 
-const _filename = fileURLToPath(import.meta.url);
-const _dirname = dirname(_filename);
-// console.log(path.resolve());
-// console.log(_dirname);
-const configPath = path.resolve(_dirname, "config", "uat.env");
-dotenv.config({ path: configPath });
-// console.log(process.env.PORT);
-const app = express();
-let corsOption = {
-  origin : "http://localhost:5173",
-  allowedHeaders : "*",
-  credentials : true
-}
-app.use(cors(corsOption));
-app.use(express.json());
 
+// 🟢 Import Passport config AFTER dotenv is loaded
+
+const app = express();
+
+
+// 🧩 CORS Setup
+const corsOption = {
+  origin: "http://localhost:5173", // frontend URL
+  credentials: true,               // allow cookies/sessions
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+app.use(cors(corsOption));
+
+// 🧩 Middleware setup
+app.use(express.json());
 app.use(cookieParser());
-// configure routes
+
+
+// 🧩 Session setup — required for Passport.js
+app.use(
+  session({
+    secret: "keyboard cat",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      httpOnly: true,
+      secure: false, // set to true in production (HTTPS)
+    },
+  })
+);
+import "./config/passport.js";
+// 🧩 Passport initialization
+app.use(passport.initialize());
+app.use(passport.session());
+
+// 🧩 Routes
 app.use("/api/storefleet/product", productRoutes);
 app.use("/api/storefleet/user", userRoutes);
-app.use("/api/storefleet/cart",cartRoutes)
+app.use("/api/storefleet/cart", cartRoutes);
 app.use("/api/storefleet/order", orderRoutes);
-// errorHandlerMiddleware
+
+
+
+// 🧩 Error Handler Middleware
 app.use(errorHandlerMiddleware);
 
 export default app;

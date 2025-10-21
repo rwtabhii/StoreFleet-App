@@ -24,7 +24,6 @@
   background: #f4f6f8;
   border: 1px solid #7064e5;
   border-radius: 10px;
-  box-sizing: border-box;
   font-size: 1.2em;
   padding: 12px;
   color: #7064e5;
@@ -43,10 +42,38 @@
   color: #fff;
   border: none;
   width: 100%;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.loginBtn:not(:disabled) {
-  cursor: pointer;
+.loginBtn:hover {
+  background-color: #5a4ed9;
+}
+
+/* 🌐 Google Login Section */
+.googleContainer {
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+.googleDivider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0.8rem 0;
+  gap: 8px;
+}
+
+.dividerLine {
+  flex: 1;
+  height: 1px;
+  background-color: #ccc;
+}
+
+.dividerText {
+  color: #666;
+  font-weight: 500;
+  font-size: 0.9rem;
 }
 
 .link {
@@ -59,3 +86,62 @@
   font-weight: 600;
   margin: 0;
 }
+
+.googleContainer {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.googleDivider {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.dividerLine {
+  flex: 1;
+  height: 1px;
+  background-color: #ccc;
+}
+
+.dividerText {
+  margin: 0 0.5rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.googleBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  width: 100%;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.googleBtn:hover {
+  background-color: #f7f7f7;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.googleLogo {
+  width: 20px;
+  height: 20px;
+  margin-right: 0.5rem;
+}
+
+.googleText {
+  font-size: 1rem;
+  color: #444;
+}
+

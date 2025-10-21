@@ -1,15 +1,16 @@
 // Import the necessary modules here
 import { createTransport } from "nodemailer";
+import env from "../../dotenv.js";
 
 
 export const sendWelcomeEmail = async (user) => {
   // Write your code here
   console.log(process.env.STORFLEET_SMPT_MAIL);
   const transport = createTransport({
-    service: process.env.SMPT_SERVICE,
+    service: env.SMPT_SERVICE,
     auth: {
-      user: process.env.STORFLEET_SMPT_MAIL,
-      pass: process.env.STORFLEET_SMPT_MAIL_PASSWORD
+      user: env.STORFLEET_SMPT_MAIL,
+      pass: env.STORFLEET_SMPT_MAIL_PASSWORD
     }
   });
 
