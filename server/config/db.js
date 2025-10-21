@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
+import env from "../dotenv.js";
 
 export const connectDB = async () => {
   try {
     console.log("db connecting...");
-    const res = await mongoose.connect(process.env.mongourl, {
+    const res = await mongoose.connect(env.MONGO_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });

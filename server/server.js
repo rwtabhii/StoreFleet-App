@@ -1,8 +1,9 @@
 import server from "./app.js";
 import { connectDB } from "./config/db.js";
-console.log(process.env.PORT)
+import env from "./dotenv.js";
 
-const serverStar = server.listen(process.env.PORT, async (err) => {
+
+const serverStar = server.listen(env.PORT, async (err) => {
   if (err) {
     console.log(`server failed with error ${err}`);
   } else {
