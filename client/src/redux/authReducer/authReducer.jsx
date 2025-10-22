@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { loginUser, registerUser } from "../../api/users/users";
+import axios from "axios";
   
 
 const initialState = {
@@ -37,6 +38,25 @@ export const loginUserAsync = createAsyncThunk(
     }
   }
 );
+
+// oauth imp
+export const fetchLoggedInUser = createAsyncThunk(
+  "auth/fetchLoggedInUser",
+  async (_, thunkAPI) => {
+    try {
+      const res = await axios.get(
+        "/api/storefleet/user/me",
+        { withCredentials: true } // send the HTTP-only cookie
+      );
+    
+      return res.data; // backend returns user object
+    } catch (err) {
+      console.log(err);
+      return thunkAPI.rejectWithValue(err.response?.data?.message || "Failed to fetch user");
+    }
+  }
+);
+
 
 export const authSlice = createSlice({
   name: "auth",
@@ -78,7 +98,24 @@ export const authSlice = createSlice({
       .addCase(loginUserAsync.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
-      });
+      })
+
+       // Handle fetchLoggedInUser
+    .addCase(fetchLoggedInUser.pending, (state) => {
+      state.isLoading = true;
+      state.error = null;
+    })
+    .addCase(fetchLoggedInUser.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.login = true;
+      state.userDetail = action.payload; // store user object
+    })
+    .addCase(fetchLoggedInUser.rejected, (state, action) => {
+      state.isLoading = false;
+      state.login = false;
+      state.userDetail = null;
+      state.error = action.payload;
+    });
   },
 });
 

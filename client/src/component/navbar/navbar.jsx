@@ -3,11 +3,18 @@ import "./navbar.css";
 import appLogo from "../../assets/applogo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { authSelector, logout } from "../../redux/authReducer/authReducer";
+import { fetchLoggedInUser } from "../../redux/authReducer/authReducer";
+import { useEffect } from "react";
 
 export function Navbar() {
     const navigate = useNavigate();
     const { login, userDetail } = useSelector(authSelector);
+    
     const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(fetchLoggedInUser());
+        console.log(userDetail)
+    }, [dispatch]);
 
     const userLogout = () => {
         dispatch(logout(false));

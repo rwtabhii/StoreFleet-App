@@ -1,15 +1,18 @@
 import jwt from "jsonwebtoken";
 import { ErrorHandler } from "../utils/errorHandler.js";
 import UserModel from "../src/user/models/user.schema.js";
+import env from "../dotenv.js";
+
 
 export const auth = async (req, res, next) => {
   const { token } = req.cookies;
+  console.log(req.cookies)
   if (!token) {
     return next(new ErrorHandler(401, "login to access this route!"));
   }
-  const decodedData = await jwt.verify(token, process.env.JWT_Secret);
+  const decodedData = await jwt.verify(token, env.JWT_SECRET);
   req.user = await UserModel.findById(decodedData.id);
-  // console.log(req.user);
+  console.log(req.user);
   next();
 };
 
