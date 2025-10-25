@@ -22,6 +22,7 @@ import cartRoutes from "./src/cart/route/cart.routes.js";
 import {
   errorHandlerMiddleware,
 } from "./middlewares/errorHandlerMiddleware.js";
+import paymentRoutes from "./src/payment/route/payment.route.js"
 
 // 🟢 Import Passport config AFTER dotenv is loaded
 
@@ -55,15 +56,18 @@ app.use(
 );
 import "./config/passport.js";
 // 🧩 Passport initialization
+
+
 app.use(passport.initialize());
 app.use(passport.session());
 
 // 🧩 Routes
+console.log(env)
 app.use("/api/storefleet/product", productRoutes);
 app.use("/api/storefleet/user", userRoutes);
 app.use("/api/storefleet/cart", cartRoutes);
 app.use("/api/storefleet/order", orderRoutes);
-
+app.use("/api/storefleet/payment",paymentRoutes);
 
 
 // 🧩 Error Handler Middleware
