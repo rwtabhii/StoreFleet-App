@@ -1,4 +1,4 @@
-import { configDotenv } from "dotenv";
+import { configDotenv } from "dotenv"; 
 import path from 'path';
 // Load .env file
 configDotenv({ path: path.resolve('./config/uat.env') });
@@ -13,7 +13,8 @@ const env = {
   SMTP_MAIL_PASSWORD: process.env.STORFLEET_SMPT_MAIL_PASSWORD,
   SMTP_SERVICE: process.env.SMPT_SERVICE,
   GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
-  GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET
+  GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+  STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY
 };
 
 export default env;
