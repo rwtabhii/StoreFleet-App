@@ -1,13 +1,33 @@
 import axios from "axios";
-export async function getProductApi() {
+
+export async function getProductApi(data = {}) {
     try {
-       const response  = await axios.get("/api/storefleet/product/products",{useCredentials:true});
-       console.log(response.data);
-       return  response.data.products
+        const { page = 1,
+            keyword = "",
+            category = "",
+            minPrice = null,
+            maxPrice = null,
+            rating = null } = data
+        // console.log(data);
+        const params = { page, category, rating, keyword }
+        if (minPrice) params["price[gte]"] = minPrice;
+        if (maxPrice) params["price[lte]"] = maxPrice;
+        console.log(params);
+        const response = await axios.get("http://localhost:3000/api/storefleet/product/products", {
+            params,
+            withCredentials: true
+        });
+
+        return response.data
     } catch (error) {
         console.log(error);
     }
 }
+
+
+
+
+
 // for adding the product
 // export function addDoc() {
 
@@ -21,7 +41,7 @@ export async function getProductApi() {
 //     if (filter.categories?.length === 1) {
 //       q = query(q, where("category", "==", filter.categories[0]));
 //     } else if (filter.categories?.length > 1) {
-//       q = query(q, where("category", "in", filter.categories)); 
+//       q = query(q, where("category", "in", filter.categories));
 //       // OR if you stored category as array in Firestore:
 //       // q = query(q, where("category", "array-contains-any", filter.categories));
 //     }

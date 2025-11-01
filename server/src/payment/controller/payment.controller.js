@@ -7,7 +7,6 @@ const stripe = new Stripe(env.STRIPE_SECRET_KEY);
 
 export const createPaymentIntent = async (req, res, next) => {
     try {
-        console.log("payment run")
         const { amount } = req.body;
         const args = {
             amount: amount,
@@ -19,7 +18,6 @@ export const createPaymentIntent = async (req, res, next) => {
         // create payment intent``
         const paymentIntent = await stripe.paymentIntents.create(args)
         // get clinet secret from the intent 
-        console.log(paymentIntent.client_secret);
         // send back to the client 
         return res.status(200).json({success : true,clientSecret: paymentIntent.client_secret })
 

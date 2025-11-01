@@ -6,13 +6,13 @@ import env from "../dotenv.js";
 
 export const auth = async (req, res, next) => {
   const { token } = req.cookies;
-  console.log(req.cookies)
+  // console.log(req.cookies)
   if (!token) {
     return next(new ErrorHandler(401, "login to access this route!"));
   }
   const decodedData = await jwt.verify(token, env.JWT_SECRET);
   req.user = await UserModel.findById(decodedData.id);
-  console.log(req.user);
+  // console.log(req.user);
   next();
 };
 

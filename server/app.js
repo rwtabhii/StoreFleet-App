@@ -62,7 +62,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // 🧩 Routes
-console.log(env)
 app.use("/api/storefleet/product", productRoutes);
 app.use("/api/storefleet/user", userRoutes);
 app.use("/api/storefleet/cart", cartRoutes);
