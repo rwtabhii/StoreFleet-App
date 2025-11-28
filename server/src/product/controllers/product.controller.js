@@ -36,7 +36,7 @@ export const addNewProduct = async (req, res, next) => {
 export const getAllProducts = async (req, res, next) => {
   // Implement the functionality for search, filter and pagination this function.
   try {
-    console.log(req.query, "query is ")
+    // console.log(req.query, "query is ")
     const { page, keyword, category, price, rating } = req.query;
     // set the product limit to 10 (one page contain the 10 product)
     const productPerPage = 9;
@@ -50,9 +50,9 @@ export const getAllProducts = async (req, res, next) => {
     //   }
     // }
     const searchProductCondition = keyword
-      ? { name: { $regex: keyword, $options: "i" } }
+      ? { title: { $regex: keyword, $options: "i" } }
       : {};
-
+    //  console.log(searchProductCondition)
     // filter the products
     
     const filterCondition = {};
@@ -90,6 +90,7 @@ export const getAllProducts = async (req, res, next) => {
     const totalCount = await getTotalCountsOfProduct(finalCondition);
     const totalPages = Math.ceil(totalCount / productPerPage);
     const getProduct = await getAllProductsRepo(finalCondition, productPerPage, pageNumber, totalCount);
+    // console.log("get product",getProduct)
     return res.status(200).json({
       success: true,
       totalItems: totalCount,
@@ -100,7 +101,7 @@ export const getAllProducts = async (req, res, next) => {
   } catch (err) {
     console.log(err);
     next(err);
- `` }
+  }
 };
 
 // updating the existing product

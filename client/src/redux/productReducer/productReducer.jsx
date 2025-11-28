@@ -9,7 +9,7 @@ const initialState = {
   filterObj: {
     price: 75000,
     category: [], // {electronics: true, fashion: false}
-    search: "",
+    keyword: "",
   },
   isLoading: false,
   error: null,
@@ -32,7 +32,7 @@ export const fetchProducts = createAsyncThunk(
       const hasFilter =
         (!!data.maxPrice && data.maxPrice !== 0) ||
         (!!data.category && Object.keys(data.category).length > 0) ||
-        (!!data.search && data.search.trim() !== "");
+        (!!data.keyword && data.keyword.trim() !== "");
 
       if (hasFilter) { thunkAPI.dispatch(setFilterState({ hasFilter, price: data.maxPrice, category: data.category }));; }
 
@@ -103,21 +103,21 @@ const productSlice = createSlice({
     // state.showProducts = filtered;
     // state.searchProducts = filtered;
     //},
-    search: (state, action) => {
-      const query = action.payload.toLowerCase().trim();
-      if (query === "") {
-        state.showProducts = state.previousSearchProducts;
-      } else {
-        const searchProduct = state.allProducts.filter((product) =>
-          product.title.toLowerCase().includes(query)
-        );
-        state.showProducts = searchProduct;
-      }
-    },
+    // search: (state, action) => {
+    //   const query = action.payload.toLowerCase().trim();
+    //   if (query === "") {
+    //     state.showProducts = state.previousSearchProducts;
+    //   } else {
+    //     const searchProduct = state.allProducts.filter((product) =>
+    //       product.title.toLowerCase().includes(query)
+    //     );
+    //     state.showProducts = searchProduct;
+    //   }
+    // },
     clearFilter: (state, action) => {
       state.filterObj.category = []
       state.filterObj.price = 75000
-      state.filterObj.search = ""
+      state.filterObj.keyword = ""
     }
   },
 

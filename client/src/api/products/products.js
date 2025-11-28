@@ -17,7 +17,7 @@ export async function getProductApi(data = {}) {
             params,
             withCredentials: true
         });
-
+       console.log(response.data)
         return response.data
     } catch (error) {
         console.log(error);

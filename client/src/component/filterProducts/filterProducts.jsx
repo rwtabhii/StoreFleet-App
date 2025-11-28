@@ -6,7 +6,7 @@ import { fetchProducts, productSelector, clearFilter } from "../../redux/product
 export function FilterProduct() {
   const { isFiltered, filterObj } = useSelector(productSelector);
   const dispatch = useDispatch();
-  console.log("filterObject is ", filterObj)
+  // console.log("filterObject is ", filterObj)
 
   // --- Local state
   const [minPrice, setMinPrice] = useState(0);
