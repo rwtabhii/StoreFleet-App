@@ -34,6 +34,9 @@ export const getUserCart = async (req, res, next) => {
         next(err);
     }
 }
+export const placeUserOrder = async(req,res,next)=>{
+
+}
 export const updateUserCart = async (req, res, next) => {
     try {
         // console.log(req.params)

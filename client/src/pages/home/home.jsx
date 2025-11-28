@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { GridLoader } from "react-spinners";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -6,22 +6,42 @@ import { FilterProduct } from "../../component/filterProducts/filterProducts";
 import { ProductList } from "../../component/product/productList/productList";
 import "./home.css";
 
-import { fetchProducts, filterProduct, productSelector } from "../../redux/productReducer/productReducer";
+import { fetchProducts, productSelector, search, } from "../../redux/productReducer/productReducer";
 
 export function Home() {
+  const [searchTerm, setSearchTerm] = useState("");
   const dispatch = useDispatch();
-  
-  // Get state directly from Redux
-  const { isLoading, error } = useSelector(productSelector);
+  const { filterObj } = useSelector(productSelector);
+  const { isLoading, error, currentPage, totalPages, totalProducts, isFiltered } = useSelector(productSelector);
+  // console.log(currentPage);
 
-  // ✅ Fetch products on initial render using thunk
+  // Fetch products on initial render
   useEffect(() => {
-    dispatch(fetchProducts());   // this triggers pending → fulfilled/rejected
-  },[]);
+    const delayDebounce = setTimeout(() => {
+      // If user typed something -> search within filters
+      if (searchTerm.trim() !== "") {
+        dispatch(fetchProducts({ ...filterObj, keyword: searchTerm, page: 1 }));
+      }
+      // If search is cleared -> show filtered products (if filter is active)
+      else if (isFiltered) {
+        dispatch(fetchProducts({ ...filterObj, page: 1 }));
+      }
+      // If no filters -> fetch all products
+      else {
+        dispatch(fetchProducts({ page: 1 }));
+      }
+    }, 500);
+
+    return () => clearTimeout(delayDebounce);
+  }, [searchTerm, isFiltered, filterObj, dispatch]);
+
+  const handlePageChange = (page) => {
+    if (page < 1 || page > totalPages) return;
+    dispatch(fetchProducts({ ...filterObj, page }));
+  };
 
   return (
     <div className="homecontainer">
-      {/* Show spinner while fetching */}
       {isLoading ? (
         <div className="spinner-container">
           <GridLoader color="#36d7b7" loading={isLoading} size={20} />
@@ -36,11 +56,10 @@ export function Home() {
           <div className="searchBar">
             <input
               type="search"
-              placeholder="Search"
+              placeholder="Search products..."
               className="searchInput"
-              onChange={(e) =>
-                dispatch(filterProduct({ search: e.target.value }))
-              }
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
 
@@ -48,6 +67,35 @@ export function Home() {
           <div className="products">
             <FilterProduct />
             <ProductList />
+          </div>
+
+          {/* Pagination Controls */}
+          <div className="pagination">
+            <button
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              Prev
+            </button>
+
+
+            {/* you can do this same thing with the forloop  to make the array and then iterate in the array to add the button  */}
+            {[...Array(totalPages)].map((_, idx) => (
+              <button
+                key={idx + 1}
+                className={currentPage === idx + 1 ? "active" : ""}
+                onClick={() => handlePageChange(idx + 1)}
+              >
+                {idx + 1}
+              </button>
+            ))}
+
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            >
+              Next
+            </button>
           </div>
         </>
       )}

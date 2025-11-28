@@ -1,16 +1,153 @@
 .filter-container {
-    background: #f0f0fc;
-    border-radius: 10px;
-    left: 0;
-    padding: 1rem;
-    position: fixed;
-    text-align: center;
-    top: 30%;
-    width: 14rem;
-
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  width: 250px;
+  position: fixed;
+  top: 14%;
+  left: 1%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
+
+.filter-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #2e2e72;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.price-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.price-label {
+  font-weight: 500;
+  color: #444;
+  display: flex;
+  justify-content: space-between;
+}
+
+.price-label span {
+  color: #3c6ef1;
+  font-weight: 600;
+}
+
+.priceRange {
+  accent-color: #3c6ef1;
+  width: 100%;
+  cursor: pointer;
+}
+
+.category-title {
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  color: #2e2e72;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 4px;
+}
+
 .categoryContainer {
-    display: flex;
+  max-height: 280px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding-right: 6px;
+  scrollbar-width: thin;
+  scrollbar-color: #aaa #f0f0f0;
+}
+
+.categoryContainer::-webkit-scrollbar {
+  width: 6px;
+}
+
+.categoryContainer::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 10px;
+}
+
+.category-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  color: #444;
+  padding: 4px 6px;
+  border-radius: 6px;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.category-item:hover {
+  background: #f3f5ff;
+  transform: scale(1.02);
+}
+
+.category-item input {
+  transform: scale(1.1);
+  accent-color: #3c6ef1;
+}
+
+
+
+/* 🔘 Button Container */
+.filterButtons {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+/* 🌿 Common Button Styles */
+.filterButtons button {
+  flex: 1;
+  padding: 0.7rem 1rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.25s ease;
+}
+
+/* ✅ Apply Button */
+.apply-btn {
+  background: linear-gradient(135deg, #4caf50, #2e7d32);
+  color: white;
+  box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+}
+
+.apply-btn:hover {
+  background: linear-gradient(135deg, #43a047, #1b5e20);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(76, 175, 80, 0.4);
+}
+
+/* ❌ Clear Button */
+.clear-btn {
+  background: linear-gradient(135deg, #ff5252, #d32f2f);
+  color: white;
+  box-shadow: 0 4px 8px rgba(255, 82, 82, 0.3);
+}
+
+.clear-btn:hover {
+  background: linear-gradient(135deg, #e53935, #b71c1c);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(255, 82, 82, 0.4);
+}
+
+/* 📱 Responsive */
+@media (max-width: 600px) {
+  .filterButtons {
     flex-direction: column;
-    align-items: flex-start;
+  }
+  .filterButtons button {
+    width: 100%;
+  }
 }

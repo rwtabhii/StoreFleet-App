@@ -9,7 +9,6 @@ export const getAllProductsList = async()=>{
 }
 
 export const getAllProductsRepo = async (condition,productPerPage,pageNumber) => {
-  console.log(condition);
   return await ProductModel.find(condition)
     .skip(productPerPage * (pageNumber - 1))
     .limit(productPerPage);
