@@ -1,12 +1,11 @@
 import { Outlet } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
-import './App.css'
+import './App.css';
 import { Navbar } from './component/navbar/navbar'
 import { Footer } from './component/footer/footer'
 
 function App() {
   return (
-    <>
     <div className="app">
             {/* ✅ Toast notifications (success, error, info, etc.) */}
             <ToastContainer
@@ -30,9 +29,6 @@ function App() {
         
               <Footer/>
     </div>
-        {/* footer here */}
-  
-    </>
   )
 }
 

@@ -16,7 +16,7 @@ export async function getProductApi(data = {}) {
 
     console.log("Query params:", params);
 
-    const response = await api.get("/storefleet/product/products", { params });
+    const response = await api.get("/api/storefleet/product/products", { params });
     console.log("Products response:", response.data);
     return response.data;
   } catch (error) {

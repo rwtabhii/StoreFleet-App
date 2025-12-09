@@ -3,7 +3,7 @@ import api from "../api.js";
 // Get all cart items for the logged-in user
 export async function getCartItemApi() {
   try {
-    const response = await api.get("/storefleet/cart/");
+    const response = await api.get("/api/storefleet/cart/");
     console.log("Cart items:", response.data.allItems);
     return response.data.allItems;
   } catch (err) {
@@ -15,7 +15,7 @@ export async function getCartItemApi() {
 // Add an item to the cart
 export async function addCartItemApi(data) {
   try {
-    await api.post("/storefleet/cart/add", data);
+    await api.post("/api/storefleet/cart/add", data);
     console.log("Cart item added successfully");
   } catch (err) {
     console.error("Error adding cart item:", err);
@@ -26,7 +26,7 @@ export async function addCartItemApi(data) {
 // Update a cart item (increment/decrement)
 export async function updateCartItemApi(itemId, type) {
   try {
-    const response = await api.put(`/storefleet/cart/${itemId}`, { type });
+    const response = await api.put(`/api/storefleet/cart/${itemId}`, { type });
     console.log("Cart updated:", response.data.cartItem);
     return response.data.cartItem;
   } catch (err) {
@@ -38,7 +38,7 @@ export async function updateCartItemApi(itemId, type) {
 // Remove a cart item
 export async function removeCartItemApi(itemId) {
   try {
-    const res = await api.delete(`/storefleet/cart/${itemId}`);
+    const res = await api.delete(`/api/storefleet/cart/${itemId}`);
     console.log("Cart item removed:", res.data);
     return res.data;
   } catch (err) {
@@ -50,7 +50,7 @@ export async function removeCartItemApi(itemId) {
 // Clear the user's cart
 export async function clearCartApi() {
   try {
-    const res = await api.delete("/storefleet/cart/user/emptycart");
+    const res = await api.delete("/api/storefleet/cart/user/emptycart");
     console.log("Cart cleared:", res.data);
     return res.data;
   } catch (err) {

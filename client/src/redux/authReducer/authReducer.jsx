@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { loginUser, registerUser } from "../../api/users/users";
 import axios from "axios";
+import api from "../../api/api.js";
   
 
 const initialState = {
@@ -44,14 +45,12 @@ export const fetchLoggedInUser = createAsyncThunk(
   "auth/fetchLoggedInUser",
   async (_, thunkAPI) => {
     try {
-      const res = await axios.get(
-        "/api/storefleet/user/me",
-        { withCredentials: true } // send the HTTP-only cookie
-      );
-    
+      // Use central api instance
+      const res = await api.get("/api/storefleet/user/me");
+
       return res.data; // backend returns user object
     } catch (err) {
-      console.log(err);
+      console.error("Failed to fetch logged-in user:", err);
       return thunkAPI.rejectWithValue(err.response?.data?.message || "Failed to fetch user");
     }
   }

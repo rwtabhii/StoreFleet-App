@@ -6,7 +6,7 @@ export const createPaymentIntentApi = async (items) => {
     console.log("Items for payment:", items);
 
     // Use central api instance
-    const res = await api.post("/storefleet/payment/create-payment-intent", { items });
+    const res = await api.post("/api/storefleet/payment/create-payment-intent", { items });
 
     console.log("Payment Intent response:", res.data);
 
