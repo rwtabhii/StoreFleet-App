@@ -26,7 +26,7 @@ export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
   async (data, thunkAPI) => {
     try {
-      // console.log(data,"thunk")
+      console.log(data,"thunk")
       const products = await getProductApi(data);
       // ✅ detect if filters exist (price, category, search)
       const hasFilter =

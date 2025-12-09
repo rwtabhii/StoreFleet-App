@@ -47,6 +47,7 @@ export const fetchLoggedInUser = createAsyncThunk(
     try {
       // Use central api instance
       const res = await api.get("/api/storefleet/user/me");
+      console.log(res)
 
       return res.data; // backend returns user object
     } catch (err) {

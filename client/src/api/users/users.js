@@ -39,6 +39,7 @@ export const forgetPasswordApi = async (email) => {
     const res = await api.post("/api/storefleet/user/password/forget", { email });
     return res.data;
   } catch (err) {
+    console.log(err)
     throw err;
   }
 };
