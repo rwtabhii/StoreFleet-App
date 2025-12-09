@@ -10,11 +10,12 @@ export function Navbar() {
     const { login, userDetail } = useSelector(authSelector);
     const dispatch = useDispatch();
 
-    useEffect(() => {
-    if (login) {
-      dispatch(fetchLoggedInUser());
-    }
-  }, [dispatch, login]);
+//     useEffect(() => {
+//     if (login) {
+//         console.log("userdetails",userDetail)
+//       dispatch(fetchLoggedInUser());
+//     }
+//   }, [dispatch, login]);
 
     const userLogout = () => {
         dispatch(logout(false));

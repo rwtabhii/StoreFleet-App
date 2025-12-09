@@ -14,14 +14,18 @@ export function Home() {
   const { filterObj } = useSelector(productSelector);
   const { isLoading, error, currentPage, totalPages, isFiltered } = useSelector(productSelector);
 
+
+  //  first render load
+  useEffect(() => {
+    dispatch(fetchProducts({ page: 1 }));
+  }, []);
+  // 🔥 run only when filters/search change
   useEffect(() => {
     const delayDebounce = setTimeout(() => {
       if (searchTerm.trim() !== "") {
         dispatch(fetchProducts({ ...filterObj, keyword: searchTerm, page: 1 }));
       } else if (isFiltered) {
         dispatch(fetchProducts({ ...filterObj, page: 1 }));
-      } else {
-        dispatch(fetchProducts({ page: 1 }));
       }
     }, 500);
 
@@ -72,16 +76,16 @@ export function Home() {
             <span className={styles.mobilePageIndicator}>
               Page {currentPage} of {totalPages}
             </span>
-           <div className={styles.pagenumber}> 
-            {[...Array(totalPages)].map((_, idx) => (
-              <button
-                key={idx + 1}
-                className={currentPage === idx + 1 ? "active" : ""}
-                onClick={() => handlePageChange(idx + 1)}
-              >
-                {idx + 1}
-              </button>
-            ))}
+            <div className={styles.pagenumber}>
+              {[...Array(totalPages)].map((_, idx) => (
+                <button
+                  key={idx + 1}
+                  className={currentPage === idx + 1 ? "active" : ""}
+                  onClick={() => handlePageChange(idx + 1)}
+                >
+                  {idx + 1}
+                </button>
+              ))}
             </div>
 
             <button

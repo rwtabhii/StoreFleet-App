@@ -7,10 +7,10 @@ export const sendWelcomeEmail = async (user) => {
   // Write your code here
   // console.log(process.env.STORFLEET_SMPT_MAIL);
   const transport = createTransport({
-    service: env.SMPT_SERVICE,
+    service: env.SMTP_SERVICE,
     auth: {
-      user: env.STORFLEET_SMPT_MAIL,
-      pass: env.STORFLEET_SMPT_MAIL_PASSWORD
+      user: env.SMTP_MAIL,
+      pass: env.SMTP_MAIL_PASSWORD
     }
   });
 

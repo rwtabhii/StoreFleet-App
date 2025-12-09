@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import { forgetPasswordApi } from "../../api/users/users.js";
-
+import styles from "../../styles/pages/loginForm.module.css";
 
 export function ForgetPassword() {
   const emailRef = useRef();
@@ -22,29 +22,29 @@ export function ForgetPassword() {
   };
 
   return (
-    <div className="formContainer">
+    <div className={styles.formContainer}>
       {/* Attach submit handler directly to form */}
-      <form className="form" onSubmit={forgetPassoword}>
-        <h2 className="loginTitle">Forget Password</h2>
+      <form className={styles.form} onSubmit={forgetPassoword}>
+        <h2 className={styles.loginTitle}>Forget Password</h2>
 
         {/* Email Input */}
         <input
           type="email"
           name="email"
           ref={emailRef}
-          className="loginInput"
+          className={styles.loginInput}
           placeholder="Enter Email"
           required
         />
 
         {/* Submit Button */}
-        <button type="submit" className="loginBtn">
+        <button type="submit" className={styles.loginBtn}>
           Forget Password
         </button>
 
         {/* Redirect to Register Page */}
-        <NavLink to="/login" className="link">
-          <p className="switchText">Or Sign In</p>
+        <NavLink to="/login" className={styles.link}>
+          <p className={styles.switchText}>Or Sign In</p>
         </NavLink>
       </form>
     </div>

@@ -76,7 +76,7 @@ router.route("/auth/google/callback").get(
       // 6️⃣ Redirect to frontend (home page)
       res.redirect("http://localhost:5173/");
     } catch (error) {
-      console.error("Error in Google callback:", error);
+      // console.error("Error in Google callback:", error);
       res.redirect("http://localhost:5173/login");
     }
   }
@@ -85,7 +85,7 @@ router.route("/auth/google/callback").get(
 // after OAuth take user detail
 router.route("/me").get(auth, async (req, res) => {
   try {
-    console.log(req.user,"after auth");
+    // console.log(req.user,"after auth");
     res.status(200).json({ success: true, user: req.user });
   } catch (err) {
     res.status(401).json({ success: false, message: "Not authenticated" });

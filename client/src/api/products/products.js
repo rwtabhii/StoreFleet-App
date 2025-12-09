@@ -24,3 +24,4 @@ export async function getProductApi(data = {}) {
     throw error;
   }
 }
+
