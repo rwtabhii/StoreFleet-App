@@ -1,0 +1,28 @@
+.orderTable {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.orderDate {
+    color: #224957;
+    font-size: 1.25em;
+    font-weight: 700;
+}
+
+.orderTableTable {
+    border: none;
+    margin: 0 auto 4rem;
+    position: relative;
+    width: 50%;
+    border-collapse: collapse;
+}
+
+.orderTableTable tr {
+    background-color: rgba(217, 217, 217, 0.21);
+}
+
+.totalPrice td,
+.OrderStatus td,
+.PaymentMethod td {
+    font-weight: 700;
+}

@@ -1,0 +1,73 @@
+.footer {
+  background-color: #111827;
+  color: white;
+  padding: 40px 20px 20px;
+  margin-top: 40px;
+}
+
+.footerContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.footerSection h3,
+.footerSection h4 {
+  margin-bottom: 12px;
+}
+
+.footerSocials svg {
+  font-size: 24px;
+  margin-right: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.footerSocials svg:hover {
+  color: #3b82f6;
+}
+
+.footerSection ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footerSection ul li {
+  margin: 8px 0;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: 0.2s;
+}
+
+.footerSection ul li:hover {
+  opacity: 1;
+}
+
+.footerSection p {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 0.8;
+  margin: 6px 0;
+}
+
+.footerSection p svg {
+  font-size: 20px;
+}
+
+.paymentIcons svg {
+  font-size: 34px;
+  margin-right: 10px;
+  opacity: 0.8;
+}
+
+.footerBottom {
+  text-align: center;
+  border-top: 1px solid #374151;
+  padding-top: 15px;
+  margin-top: 30px;
+  font-size: 14px;
+  opacity: 0.7;
+}

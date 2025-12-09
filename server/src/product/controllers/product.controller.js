@@ -86,7 +86,7 @@ export const getAllProducts = async (req, res, next) => {
       ...filterCondition,
     };
 
-    console.log(finalCondition)
+    // console.log(finalCondition)
     const totalCount = await getTotalCountsOfProduct(finalCondition);
     const totalPages = Math.ceil(totalCount / productPerPage);
     const getProduct = await getAllProductsRepo(finalCondition, productPerPage, pageNumber, totalCount);
@@ -99,7 +99,7 @@ export const getAllProducts = async (req, res, next) => {
       getProduct
     });
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     next(err);
   }
 };
@@ -223,7 +223,7 @@ export const deleteReview = async (req, res, next) => {
       return ((rev._id.toString() === reviewId.toString()) &&
         (rev.user.toString() === req.user._id.toString()));
     });
-    console.log(isReviewExistIndex);
+    // console.log(isReviewExistIndex);
     if (isReviewExistIndex < 0) {
       return next(new ErrorHandler(400, "review doesn't exist"));
     }
@@ -235,7 +235,7 @@ export const deleteReview = async (req, res, next) => {
       avgRating += rev.rating;
     });
     const updatedRatingOfProduct = avgRating / product.reviews.length;
-    console.log(updatedRatingOfProduct);
+    // console.log(updatedRatingOfProduct);
     product.rating = updatedRatingOfProduct;
     await product.save({ validateBeforeSave: false });
     res.status(200).json({

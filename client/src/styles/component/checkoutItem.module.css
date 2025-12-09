@@ -1,12 +1,11 @@
-/* ===== Checkout Item List ===== */
-.checkout-item {
+.checkoutItem {
   background: #fff;
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.section-title {
+.sectionTitle {
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 15px;
@@ -14,14 +13,15 @@
   padding-bottom: 8px;
 }
 
-/* Cards for each product */
-.checkout-item-list {
+/* List */
+.checkoutItemList {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-.checkout-item-card {
+/* Card */
+.checkoutItemCard {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -32,11 +32,12 @@
   transition: box-shadow 0.2s ease;
 }
 
-.checkout-item-card:hover {
+.checkoutItemCard:hover {
   box-shadow: 0 3px 6px rgba(0,0,0,0.08);
 }
 
-.checkout-item-img {
+/* Image */
+.checkoutItemImg {
   width: 60px;
   height: 60px;
   object-fit: cover;
@@ -45,56 +46,57 @@
   margin-right: 15px;
 }
 
-.checkout-item-details {
+/* Details */
+.checkoutItemDetails {
   flex: 1;
 }
 
-.checkout-item-name {
+.checkoutItemName {
   font-size: 16px;
   font-weight: 500;
   margin: 0;
   color: #333;
 }
 
-.checkout-item-qty {
+.checkoutItemQty {
   font-size: 14px;
   color: #666;
 }
 
-.checkout-item-price {
+.checkoutItemPrice {
   font-size: 16px;
   font-weight: 600;
   color: #444;
 }
 
-/* ===== Totals Section ===== */
-.checkout-item-totals {
+/* Totals */
+.checkoutItemTotals {
   margin-top: 20px;
   padding-top: 15px;
   border-top: 1px solid #eee;
 }
 
-.checkout-total-line {
+.checkoutTotalLine {
   display: flex;
   justify-content: space-between;
   font-size: 15px;
   margin-bottom: 8px;
 }
 
-.checkout-total-main {
+.checkoutTotalMain {
   font-size: 17px;
   font-weight: 700;
   color: #222;
 }
 
-/* ===== Responsive ===== */
+/* Responsive */
 @media (max-width: 768px) {
-  .checkout-item-card {
+  .checkoutItemCard {
     flex-direction: row;
     gap: 10px;
   }
 
-  .checkout-item-img {
+  .checkoutItemImg {
     width: 50px;
     height: 50px;
   }

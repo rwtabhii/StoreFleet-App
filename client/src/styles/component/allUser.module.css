@@ -1,4 +1,4 @@
-.user-card {
+.userCard {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -10,29 +10,29 @@
   transition: transform 0.2s ease;
 }
 
-.user-card:hover {
+.userCard:hover {
   transform: scale(1.02);
 }
 
-.user-info {
+.userInfo {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.user-name {
+.userName {
   font-size: 1.2rem;
   font-weight: 600;
   color: #2c3e50;
 }
 
-.role-section {
+.roleSection {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.role-dropdown {
+.roleDropdown {
   padding: 6px 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
@@ -42,11 +42,11 @@
   outline: none;
 }
 
-.role-dropdown:disabled {
+.roleDropdown:disabled {
   background: #eaeaea;
 }
 
-.user-actions {
+.userActions {
   display: flex;
   gap: 10px;
 }
@@ -61,20 +61,20 @@
   transition: all 0.2s ease-in-out;
 }
 
-.view-btn {
+.viewBtn {
   background: #3498db;
   color: white;
 }
 
-.view-btn:hover {
+.viewBtn:hover {
   background: #2980b9;
 }
 
-.delete-btn {
+.deleteBtn {
   background: #e74c3c;
   color: white;
 }
 
-.delete-btn:hover {
+.deleteBtn:hover {
   background: #c0392b;
 }

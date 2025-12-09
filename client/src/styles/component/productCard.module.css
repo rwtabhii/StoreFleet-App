@@ -42,7 +42,7 @@
   font-weight: 500;
   color: #333;
   line-height: 1.4;
-  height: 40px; /* keeps consistent height for all cards */
+  height: 40px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -69,8 +69,26 @@
 .addBtn:hover {
   background-color: #285e61;
 }
-.addBtn.out {
+
+.addBtnOut {
   opacity: 0.6;
   border-color: #ccc;
-  cursor: not-allowed; /* visual only */
+  cursor: not-allowed;
+}
+
+.priceQuantity {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.productQuantity {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+
+@media screen and (max-width : 1430px) {
+  .productCard {
+  margin: 0px;
+  }
 }

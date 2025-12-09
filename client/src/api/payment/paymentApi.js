@@ -2,13 +2,15 @@
 import axios from "axios";
 
 
-export const createPaymentIntentApi = async (amount) => {
+export const createPaymentIntentApi = async (items) => {
   try {
+    console.log(items)
     const res = await axios.post(
       "/api/storefleet/payment/create-payment-intent",
-      { amount },
+      { items: items },
       { withCredentials: true }
     );
+    console.log(res)
 
     if (res.data && res.data.success) {
       return res.data.clientSecret;
@@ -16,7 +18,7 @@ export const createPaymentIntentApi = async (amount) => {
       throw new Error(res.data?.message || "Failed to create PaymentIntent");
     }
   } catch (err) {
-    console.error("createPaymentIntentApi Error:", err);
+    console.log("createPaymentIntentApi Error:", err);
     throw err;
   }
 };

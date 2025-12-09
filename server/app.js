@@ -23,12 +23,13 @@ import {
   errorHandlerMiddleware,
 } from "./middlewares/errorHandlerMiddleware.js";
 import paymentRoutes from "./src/payment/route/payment.route.js"
+import helmet from "helmet";
 
 // 🟢 Import Passport config AFTER dotenv is loaded
 
 const app = express();
 
-
+app.use(helmet())
 // 🧩 CORS Setup
 const corsOption = {
   origin: "http://localhost:5173", // frontend URL

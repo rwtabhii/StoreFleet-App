@@ -1,16 +1,23 @@
 import { useState, useEffect } from "react";
-import "./filterProduct.css";
+import { CiFilter } from "react-icons/ci";
+
+import styles from "../../styles/component/filterProduct.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts, productSelector, clearFilter } from "../../redux/productReducer/productReducer";
+import {
+  fetchProducts,
+  productSelector,
+  clearFilter,
+} from "../../redux/productReducer/productReducer.jsx";
 
 export function FilterProduct() {
   const { isFiltered, filterObj } = useSelector(productSelector);
   const dispatch = useDispatch();
-  // console.log("filterObject is ", filterObj)
 
-  // --- Local state
+  const [showFilter, setShowFilter] = useState(false); // 👈 NEW STATE
+
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(75000);
+
   const [category, setCategory] = useState({
     mensCloth: false,
     womansCloth: false,
@@ -37,42 +44,39 @@ export function FilterProduct() {
     "Handmade Crafts": false,
   });
 
-  // --- Handle category toggle
   const handleCategoryChange = (key, checked) => {
     setCategory((prev) => ({ ...prev, [key]: checked }));
   };
 
-  // --- Apply filters (fetch with both price & category)
   const handleApplyFilters = () => {
-    const selectedCategories = Object.keys(category).filter((cat) => category[cat]);
-    const filterData = {
-      minPrice, // ✅ same key name your backend expects
-      maxPrice,
-      category: selectedCategories, // ✅ same key name your backend expects
-    };
-    // console.log(filterData,"component")
-    dispatch(fetchProducts(filterData));
+    const selectedCategories = Object.keys(category).filter(
+      (cat) => category[cat]
+    );
+
+    dispatch(
+      fetchProducts({
+        minPrice,
+        maxPrice,
+        category: selectedCategories,
+      })
+    );
   };
 
-  // --- Clear all filters
   const handleClearFilters = () => {
-    dispatch(clearFilter())
-    dispatch(fetchProducts({ page: 1 })); // fetch all products
+    dispatch(clearFilter());
+    dispatch(fetchProducts({ page: 1 }));
   };
-
 
   useEffect(() => {
-    if (filterObj.price !== undefined && filterObj.price !== null) {
+    if (filterObj.price !== undefined) {
       setMaxPrice(filterObj.price);
     }
-    // 🧩 Sync category
+
     const updatedCategories = {};
-    for (const key in category) {
-      updatedCategories[key] = false;
-    }
+    for (const key in category) updatedCategories[key] = false;
 
     if (Array.isArray(filterObj?.category)) {
-      filterObj.category.forEach(cat => {
+      filterObj.category.forEach((cat) => {
         if (updatedCategories.hasOwnProperty(cat)) {
           updatedCategories[cat] = true;
         }
@@ -83,57 +87,76 @@ export function FilterProduct() {
   }, [filterObj.price, filterObj.category]);
 
   return (
-    <div className="filter-container">
-      <h2 className="filter-title">🔍 Filter Products</h2>
+    <>
+      {/* 👇 FILTER ICON (visible only under 853px) */}
+      <CiFilter
+        className={styles.filterIcon}
+        onClick={() => setShowFilter(!showFilter)}
+      />
 
-      <form className="filterSidebar" onSubmit={(e) => e.preventDefault()}>
-        {/* 💰 Price Filter */}
-        <div className="price-section">
-          <label className="price-label">Show products ₹{maxPrice}</label>
-          <input
-            type="range"
-            min="0"
-            max="100000"
-            step="500"
-            value={maxPrice}
-            onChange={(e) => setMaxPrice(Number(e.target.value))}
-            className="priceSlider"
-          />
-        </div>
+      {/* 👇 Condition for mobile: only show when showFilter = true */}
+      <div
+        className={`${styles.filterContainer} ${
+          showFilter ? styles.show : styles.hide
+        }`}
+      >
+        <h2 className={styles.filterTitle}>🔍 Filter Products</h2>
 
-        {/* 🧩 Categories */}
-        <h3 className="category-title">Categories</h3>
-        <div className="categoryContainer">
-          {Object.keys(category).map((key) => (
-            <label key={key} className="category-item">
-              <input
-                type="checkbox"
-                checked={category[key]}
-                onChange={(e) => handleCategoryChange(key, e.target.checked)}
-              />
-              <span>{key}</span>
+        <form onSubmit={(e) => e.preventDefault()}>
+          {/* PRICE */}
+          <div className={styles.priceSection}>
+            <label className={styles.priceLabel}>
+              Show products ₹{maxPrice}
             </label>
-          ))}
-        </div>
 
-        {/* 🔘 Buttons */}
-        <div className="filterButtons">
-          <button
-            type="button"
-            onClick={handleApplyFilters}
-            className="apply-btn"
-          >
-            Apply Filters
-          </button>
-          <button
-            type="button"
-            onClick={handleClearFilters}
-            className="clear-btn"
-          >
-            Clear
-          </button>
-        </div>
-      </form>
-    </div>
+            <input
+              type="range"
+              min="0"
+              max="100000"
+              step="500"
+              value={maxPrice}
+              onChange={(e) => setMaxPrice(Number(e.target.value))}
+              className={styles.priceRange}
+            />
+          </div>
+
+          {/* CATEGORY */}
+          <h3 className={styles.categoryTitle}>Categories</h3>
+
+          <div className={styles.categoryContainer}>
+            {Object.keys(category).map((key) => (
+              <label key={key} className={styles.categoryItem}>
+                <input
+                  type="checkbox"
+                  checked={category[key]}
+                  onChange={(e) =>
+                    handleCategoryChange(key, e.target.checked)
+                  }
+                />
+                <span>{key}</span>
+              </label>
+            ))}
+          </div>
+
+          <div className={styles.filterButtons}>
+            <button
+              type="button"
+              onClick={handleApplyFilters}
+              className={styles.applyBtn}
+            >
+              Apply Filters
+            </button>
+
+            <button
+              type="button"
+              onClick={handleClearFilters}
+              className={styles.clearBtn}
+            >
+              Clear
+            </button>
+          </div>
+        </form>
+      </div>
+    </>
   );
 }

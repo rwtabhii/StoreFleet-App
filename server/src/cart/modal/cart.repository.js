@@ -37,32 +37,35 @@ export const getCart = async (userId) => {
     }
 };
 export const updateCartProduct = async (userId, cartId, type) => {
-  // Find the cart item
-//   console.log(userId,cartId,type)
-  const cartItem = await cartModel.findOne({ _id:cartId ,user: userId, });
-//   console.log("cartitem", cartItem);
+  let update = {};
 
-  if (!cartItem) {
-    throw new ErrorHandler("Cart item not found", 404);
-  }
-
-  // Update quantity based on the type
   if (type === "increment") {
-    cartItem.quantity += 1;
+    update = { $inc: { quantity: 1 } };
   } else if (type === "decrement") {
-    // Decrease quantity but ensure it doesn't go below 1
-    if (cartItem.quantity > 1) {
-      cartItem.quantity -= 1;
-    } else {
-      throw new ErrorHandler("Quantity cannot be less than 1", 400);
-    }
+    update = { $inc: { quantity: -1 } };
   } else {
     throw new ErrorHandler("Invalid update type", 400);
   }
 
-  await cartItem.save();
-  return cartItem;
+  const updatedItem = await cartModel.findOneAndUpdate(
+    { _id: cartId, user: userId },
+    update,
+    { new: true }
+  );
+
+  if (!updatedItem) {
+    throw new ErrorHandler("Cart item not found", 404);
+  }
+
+  // If quantity becomes 0 => remove item automatically
+  if (updatedItem.quantity <= 0) {
+    await cartModel.deleteOne({ _id: cartId });
+    return { removed: true };
+  }
+
+  return updatedItem;
 };
+
 export const deleteCartProduct = async (userId, cartId) => {
     const deletedItem = await cartModel.findOneAndDelete({ _id: cartId,user: userId});
 

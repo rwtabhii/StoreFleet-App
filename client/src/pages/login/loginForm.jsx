@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-toastify";
-import { loginUserAsync, authSelector } from "../../redux/authReducer/authReducer";
-import "./loginForm.css";
+import { loginUserAsync, authSelector } from "../../redux/authReducer/authReducer.jsx";
+import styles from "../../styles/pages/loginForm.module.css";
 
 export function LoginForm() {
   const emailRef = useRef();
@@ -14,7 +14,6 @@ export function LoginForm() {
   const navigate = useNavigate();
   const { isLoading } = useSelector(authSelector);
 
-  // 🟢 Normal login handler
   const checkUserCred = (e) => {
     e.preventDefault();
     const email = emailRef.current.value;
@@ -31,22 +30,20 @@ export function LoginForm() {
       });
   };
 
-  // 🔵 Passport.js Google login redirect
   const handleGoogleLogin = () => {
-    // Simply redirect the user to backend Google OAuth route
     window.location.href = "http://localhost:3000/api/storefleet/user/auth/google";
   };
 
   return (
-    <div className="formContainer">
-      <form className="form" onSubmit={checkUserCred}>
-        <h2 className="loginTitle">Sign In</h2>
+    <div className={styles.formContainer}>
+      <form className={styles.form} onSubmit={checkUserCred}>
+        <h2 className={styles.loginTitle}>Sign In</h2>
 
         <input
           type="email"
           name="email"
           ref={emailRef}
-          className="loginInput"
+          className={styles.loginInput}
           placeholder="Enter Email"
           required
         />
@@ -55,38 +52,34 @@ export function LoginForm() {
           type="password"
           name="password"
           ref={passwordRef}
-          className="loginInput"
+          className={styles.loginInput}
           placeholder="Enter Password"
           required
         />
-        <button type="submit" className="loginBtn">
+
+        <button type="submit" className={styles.loginBtn}>
           {isLoading ? "..." : "Sign In"}
         </button>
 
-        {/* Google Login Section */}
-        <div className="googleContainer">
-          <div className="googleDivider">
-            <span className="dividerLine"></span>
-            <span className="dividerText">or</span>
-            <span className="dividerLine"></span>
+        <div className={styles.googleContainer}>
+          <div className={styles.googleDivider}>
+            <span className={styles.dividerLine}></span>
+            <span className={styles.dividerText}>or</span>
+            <span className={styles.dividerLine}></span>
           </div>
 
-          <button
-            type="button"
-            className="googleBtn"
-            onClick={handleGoogleLogin}
-          >
-            <FcGoogle className="googleLogo" />
-            <span className="googleText">Sign in with Google</span>
+          <button type="button" className={styles.googleBtn} onClick={handleGoogleLogin}>
+            <FcGoogle className={styles.googleLogo} />
+            <span className={styles.googleText}>Sign in with Google</span>
           </button>
         </div>
 
-
-        <NavLink to="/register" className="link">
-          <p className="switchText">Or Sign Up instead</p>
+        <NavLink to="/register" className={styles.link}>
+          <p className={styles.switchText}>Or Sign Up instead</p>
         </NavLink>
-        <NavLink to="/forget-password" className="link">
-          <p className="switchText">Forget Password</p>
+
+        <NavLink to="/forget-password" className={styles.link}>
+          <p className={styles.switchText}>Forget Password</p>
         </NavLink>
       </form>
     </div>

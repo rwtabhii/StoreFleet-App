@@ -5,15 +5,15 @@ import env from "../../dotenv.js";
 
 export const sendPasswordResetEmail = async (user, resetPasswordURL) => {
   const transporter = nodemailer.createTransport({
-    service: env.SMPT_SERVICE,
+    service: env.SMTP_SERVICE,
     auth: {
-      user: env.STORFLEET_SMPT_MAIL,
-      pass: env.STORFLEET_SMPT_MAIL_PASSWORD,
+      user: env.SMTP_MAIL,
+      pass: env.SMTP_MAIL_PASSWORD,
     },
   });
 
   const mailOptions = {
-    from: process.env.STORFLEET_MAIL,
+    from: env.SMTP_MAIL,
     to: user.email,
     subject: "Password Reset",
     html: `

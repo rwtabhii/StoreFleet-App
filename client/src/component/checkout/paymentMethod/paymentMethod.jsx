@@ -1,4 +1,4 @@
-import "./paymentMethod.css";
+import styles from "../../../styles/component/paymentMethod.module.css";
 
 export function PaymentMethod({ selected, onChange }) {
   const options = [
@@ -9,11 +9,12 @@ export function PaymentMethod({ selected, onChange }) {
   ];
 
   return (
-    <div className="payment-container">
-      <h3 className="payment-heading">Select Payment Method</h3>
-      <div className="payment-options">
-        {options.map(opt => (
-          <label className="payment-option" key={opt.value}>
+    <div className={styles.paymentContainer}>
+      <h3 className={styles.paymentHeading}>Select Payment Method</h3>
+
+      <div className={styles.paymentOptions}>
+        {options.map((opt) => (
+          <label className={styles.paymentOption} key={opt.value}>
             <input
               type="radio"
               name="paymentType"

@@ -1,52 +1,43 @@
 import { useEffect } from "react";
 import { GridLoader } from "react-spinners";
 
-import { CartTotal } from "../../component/cart/cartTotal/cartTotal";
-import { CartCard } from "../../component/cart/cartCard/cartCard";
-import "./cart.css";
-
+import { CartTotal } from "../../component/cart/cartTotal/cartTotal.jsx";
+import { CartCard } from "../../component/cart/cartCard/cartCard.jsx";
 import { useDispatch, useSelector } from "react-redux";
-import { authSelector } from "../../redux/authReducer/authReducer";
-import { fetchCartItems, selectCart } from "../../redux/cartReducer/cartReducer";
+import { authSelector } from "../../redux/authReducer/authReducer.jsx";
+import { fetchCartItems, selectCart } from "../../redux/cartReducer/cartReducer.jsx";
+
+import styles from "../../styles/pages/cart.module.css";
 
 export function CartPage() {
   const dispatch = useDispatch();
 
-  // Redux state
   const { userDetail } = useSelector(authSelector);
-  const {items,isLoading,error} = useSelector(selectCart);
-  // console.log(items)
- 
-  // Fetch cart items when userDetail.uid is available
+  const { items, isLoading, error } = useSelector(selectCart);
+
   useEffect(() => {
-    // console.log(userDetail)
     if (userDetail?.user._id) {
-      console.log("fetch invoke");
       dispatch(fetchCartItems());
     }
-  },[dispatch,userDetail?.uid]);
+  }, [dispatch, userDetail?.user._id]);
 
-  // Show loader while fetching
   if (isLoading) {
     return (
-      <div className="spinner-container">
+      <div className={styles.spinnerContainer}>
         <GridLoader color="#36d7b7" loading={isLoading} size={20} />
       </div>
     );
   }
 
-  // Show error if fetch failed
   if (error) {
     return <p style={{ color: "red" }}>Error: {error}</p>;
   }
 
   return (
-    <div className="cart-Container">
-      {/* 🛒 Cart Summary */}
+    <div className={styles.cartContainer}>
       <CartTotal />
 
-      {/* 🛍️ Cart Items */}
-      <div className="cartList">
+      <div className={styles.cartList}>
         {items.length > 0 ? (
           items.map((cartItem) => (
             <CartCard key={cartItem._id} item={cartItem} />

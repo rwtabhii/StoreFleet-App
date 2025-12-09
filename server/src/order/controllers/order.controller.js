@@ -19,14 +19,14 @@ export const createNewOrder = async (req, res, next) => {
     orderData.user = req.user._id;
     orderData.paidAt = new Date().toISOString();
     const newOrder = await createNewOrderRepo(orderData);
-    console.log("nweorder Controller", newOrder)
+    // console.log("nweorder Controller", newOrder)
     return res.status(201).json({
       success: true,
       order: newOrder
     });
   }
   catch (err) {
-    console.log(err);
+    // console.log(err);
     next(err);
   }
 };
@@ -111,7 +111,7 @@ export const getUserOrders = async (req, res, next) => {
   try {
     const userId = req.params.id; // or req.user._id if using JWT auth
     
- console.log(userId)
+//  console.log(userId)
     const orders = await getAllUserOrdersRepo(userId);
 
     if (!orders || orders.length === 0) {

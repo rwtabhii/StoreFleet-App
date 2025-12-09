@@ -1,10 +1,10 @@
-.all-user-page {
+.allUserPage {
   padding: 20px;
   background: #f7f9fc;
   min-height: 100vh;
 }
 
-.page-title {
+.pageTitle {
   text-align: center;
   font-size: 2rem;
   font-weight: bold;
@@ -12,7 +12,7 @@
   color: #2c3e50;
 }
 
-.user-list {
+.userList {
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -20,7 +20,7 @@
   margin: 0 auto;
 }
 
-.no-user-msg {
+.noUserMsg {
   text-align: center;
   font-size: 1.2rem;
   color: #555;

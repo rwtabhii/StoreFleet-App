@@ -1,0 +1,109 @@
+/* MAIN CONTAINER */
+.carouselBox {
+  position: sticky;
+  top: 10em;
+  right: 1px;
+  width: 18em;
+  height: 500px;
+  margin-top: 20px;
+  margin-left: 35px;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  background: white;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Force slides to full height */
+.carouselBox :global(.carousel),
+.carouselBox :global(.slider-wrapper),
+.carouselBox :global(.slider),
+.carouselBox :global(.slide) {
+  height: 100% !important;
+}
+
+/* Make each slide a relative container */
+.carouselItem {
+  position: relative;
+  height: 100%;
+}
+
+/* Image fills entire carousel height */
+.carouselItem img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* LEGEND (Product text) — stays inside image */
+.carouselBox :global(.carousel .legend) {
+  position: absolute !important;
+  bottom: 16px !important;
+  left: -4% !important;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  padding: 10px 14px;
+  border-radius: 6px;
+  color: #fff !important;
+  width: 90%;
+  max-width: 220px;
+  font-size: 14px !important;
+  font-weight: 500;
+  text-align: center;
+  z-index: 20;
+  pointer-events: none;
+}
+
+/* ARROWS — stay inside image */
+.carouselBox :global(.carousel .control-arrow),
+.carouselBox :global(.carousel.carousel-slider .control-arrow) {
+  position: absolute;
+  top: 45% !important;
+  transform: translateY(-50%);
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.45) !important;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  opacity: 0.85;
+}
+
+.carouselBox :global(.carousel .control-prev) {
+  left: 8px !important;
+}
+
+.carouselBox :global(.carousel .control-next) {
+  right: 8px !important;
+}
+
+.carouselBox :global(.carousel .control-arrow:before) {
+  position: relative;
+  color: white;
+  right: 10%;
+  bottom: 45%;
+  font-size: 18px;
+}
+
+/* DOTS — inside image bottom */
+.carouselBox :global(.carousel .control-dots) {
+  bottom: 10px !important;
+}
+
+.carouselBox :global(.carousel .control-dots .dot) {
+  background: white;
+  opacity: 0.7;
+  width: 8px;
+  height: 8px;
+}
+
+.carouselBox :global(.carousel .control-dots .dot.selected) {
+  opacity: 1;
+  background: black;
+}
+
+@media screen and (max-width: 853px) {
+  .carouselBox{
+    width: 93vw;
+    margin: auto;
+  }
+}

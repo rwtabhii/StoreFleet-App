@@ -1,0 +1,134 @@
+.navbarContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 2rem;
+    background-color: #6ecee6;
+    border-bottom: 1px solid #e5e5e5;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+/* Logo section */
+.navbarLogo {
+    display: flex;
+    align-items: center;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #333;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.navbarLogo img {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+    border-radius: 20px;
+}
+
+/* Links */
+.navbarLinks {
+    display: flex;
+    gap: 2rem;
+}
+
+.link {
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #333;
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+/* Active link */
+.activeLink {
+    color: #11e3ff;
+    font-weight: 600;
+    background-color: #ffe9d6;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+}
+
+/* User Profile Dropdown */
+.userProfile i {
+    font-size: 35px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    cursor: pointer;
+}
+
+.dropdownContent {
+    display: none;
+    position: absolute;
+    right: -40%;
+    background-color: #fff;
+    min-width: 100px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+    z-index: 1;
+}
+
+.dropdownContent a {
+    color: #333;
+    padding: 10px 14px;
+    text-decoration: none;
+    display: block;
+    border-bottom: 1px solid #eee;
+}
+
+.dropdownContent a:last-child {
+    border-bottom: none;
+}
+
+.dropdownContent a:hover {
+    background-color: #b6b6b6;
+}
+
+.dropdown:hover .dropdownContent {
+    display: block;
+}
+
+@media screen and (max-width : 550px) {
+    .navbarContainer {
+        padding: 0.8rem 1rem;
+    }
+}
+
+@media screen and (max-width : 460px) {
+    .navbarContainer {
+        padding: 0.8rem 1rem;
+    }
+    .navbarLinks {
+    display: flex;
+    gap: 1rem;
+}
+.link {
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 200;
+    color: #333;
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+}
+
+@media screen and (max-width : 410px) {
+      .navbarContainer {
+        padding: 0.8rem 1rem;
+    }
+.navItemHideText {
+  font-size: 0;    /* hides the text */
+}
+
+.navItemHideText i {
+  font-size: 1.2rem;  /* keep icon visible */
+}
+}

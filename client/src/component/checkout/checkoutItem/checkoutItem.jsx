@@ -1,51 +1,54 @@
-import React from "react";
-import "./checkoutItem.css";
+import styles from "../../../styles/component/checkoutItem.module.css";
 
-export const CheckoutItem = ({items}) => {
-  
-  const subtotal = items.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
+export function CheckoutItem({ items }) {
+  const subtotal = items.reduce(
+    (acc, item) => acc + item.product.price * item.quantity, 
+    0
+  );
   const shipping = subtotal > 500 ? 0 : 100;
   const total = subtotal + shipping;
 
   return (
-    <div className="checkout-item">
-      <h3 className="section-title">Items in Your Order</h3>
+    <div className={styles.checkoutItem}>
+      <h3 className={styles.sectionTitle}>Items in Your Order</h3>
 
-      <div className="checkout-item-list">
+      <div className={styles.checkoutItemList}>
         {items.map((item) => (
-          <div key={item._id} className="checkout-item-card">
+          <div key={item._id} className={styles.checkoutItemCard}>
             <img
               src={item.product.image}
               alt={item.product.title}
-              className="checkout-item-img"
+              className={styles.checkoutItemImg}
             />
-            <div className="checkout-item-details">
-              <h4 className="checkout-item-name">{item.product.title}</h4>
-              <p className="checkout-item-qty">Qty: {item.quantity}</p>
+
+            <div className={styles.checkoutItemDetails}>
+              <h4 className={styles.checkoutItemName}>{item.product.title}</h4>
+              <p className={styles.checkoutItemQty}>Qty: {item.quantity}</p>
             </div>
-            <div className="checkout-item-price">
+
+            <div className={styles.checkoutItemPrice}>
               ₹{item.product.price * item.quantity}
             </div>
           </div>
         ))}
       </div>
 
-      <div className="checkout-item-totals">
-        <div className="checkout-total-line">
+      <div className={styles.checkoutItemTotals}>
+        <div className={styles.checkoutTotalLine}>
           <span>Subtotal</span>
           <span>₹{subtotal}</span>
         </div>
-        <div className="checkout-total-line">
+
+        <div className={styles.checkoutTotalLine}>
           <span>Shipping</span>
           <span>{shipping === 0 ? "Free" : `₹${shipping}`}</span>
         </div>
-        <div className="checkout-total-line checkout-total-main">
+
+        <div className={`${styles.checkoutTotalLine} ${styles.checkoutTotalMain}`}>
           <span>Total</span>
           <span>₹{total}</span>
         </div>
       </div>
     </div>
   );
-};
-
-
+}
