@@ -1,4 +1,4 @@
-.success-container {
+.successContainer {
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -7,7 +7,7 @@
   padding: 1rem;
 }
 
-.success-card {
+.successCard {
   background: #fff;
   border-radius: 1.5rem;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
@@ -17,25 +17,25 @@
   animation: fadeInUp 0.6s ease;
 }
 
-.success-icon {
+.successIcon {
   color: #22c55e;
   width: 70px;
   height: 70px;
   margin-bottom: 1rem;
 }
 
-.success-title {
+.successTitle {
   font-size: 1.8rem;
   color: #111827;
   margin-bottom: 0.5rem;
 }
 
-.success-message {
+.successMessage {
   color: #374151;
   margin-bottom: 1.5rem;
 }
 
-.payment-id {
+.paymentId {
   background: #f3f4f6;
   padding: 0.75rem;
   border-radius: 8px;
@@ -45,7 +45,7 @@
   color: #111827;
 }
 
-.home-button {
+.homeButton {
   display: inline-block;
   background: #2563eb;
   color: white;
@@ -55,7 +55,7 @@
   transition: background 0.3s ease, transform 0.2s ease;
 }
 
-.home-button:hover {
+.homeButton:hover {
   background: #1d4ed8;
   transform: scale(1.05);
 }

@@ -1,0 +1,25 @@
+.productList {
+  width: 50em;
+  height: auto;
+  min-height: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
+  gap: 2rem;
+  margin: 3em 3em 18em 3em;
+}
+
+@media screen and (max-width: 1430px) {
+  .productList {
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(12em, 1fr));
+    margin: 3em 0em 18em 2em;
+  }
+  
+}
+@media screen and (max-width : 853px) {
+  .productList{
+    width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(12em, 1fr));
+    margin: auto;
+  }
+}

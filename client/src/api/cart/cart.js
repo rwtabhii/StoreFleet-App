@@ -4,7 +4,7 @@ export async function getCartItemApi() {
         const response = await axios.get("/api/storefleet/cart/", {
             withCredentials: true
         });
-        // console.log(response.data.allItems);
+        console.log(response.data.allItems);
         return response.data.allItems
     } catch (err) {
         console.log("Error fetching cart items:", err);

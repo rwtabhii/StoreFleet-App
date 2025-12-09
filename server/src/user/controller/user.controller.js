@@ -81,6 +81,10 @@ export const forgetPassword = async (req, res, next) => {
         new ErrorHandler(404, "User not found with the provided email")
       );
     }
+    // Check if getResetPasswordToken exists before calling
+    if (typeof user.getResetPasswordToken !== "function") {
+      return next(new ErrorHandler(500, "Password reset functionality is not available for this user."));
+    }
     // sending token to client 
     const resetToken = await user.getResetPasswordToken();
     // console.log(resetToken + "reset token");
@@ -121,7 +125,7 @@ export const resetUserPassword = async (req, res, next) => {
 
   }
   catch (err) {
-    console.log(err);
+    // console.log(err);
     next(err);
   }
 };
@@ -136,7 +140,7 @@ export const getUserDetails = async (req, res, next) => {
 };
 // update user password
 export const updatePassword = async (req, res, next) => {
-  console.log(req.body);
+  // console.log(req.body);
   const { currentPassword, newPassword, confirmPassword } = req.body;
   try {
     if (!currentPassword) {
@@ -242,7 +246,7 @@ export const updateUserProfileAndRole = async (req, res, next) => {
     if (err.name === "CastError") {
       return next(new ErrorHandler(400, "Invalid user ID format"));
     }
-    console.log(err);
+    // console.log(err);
     return next(err);
   }
 };

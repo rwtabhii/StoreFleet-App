@@ -1,4 +1,4 @@
-.payment-container {
+.paymentContainer {
   background: #ffffff;
   border: 1px solid #ddd;
   padding: 20px;
@@ -6,20 +6,20 @@
   border-radius: 8px;
 }
 
-.payment-heading {
+.paymentHeading {
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 15px;
   color: #333;
 }
 
-.payment-options {
+.paymentOptions {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.payment-option {
+.paymentOption {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -32,15 +32,11 @@
   border: 1px solid transparent;
 }
 
-.payment-option:hover {
+.paymentOption:hover {
   background-color: #f0f0f0;
 }
 
-.payment-option input[type="radio"] {
-  accent-color: #4caf50; /* green highlight for selected radio */
+.paymentOption input[type="radio"] {
+  accent-color: #4caf50;
   cursor: pointer;
-}
-
-.payment-option input[type="radio"]:checked + label {
-  font-weight: 600;
 }

@@ -1,0 +1,30 @@
+.cartTotal {
+  align-items: center;
+  background: #f1f1f1;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: flex-start;
+  left: 0.5rem;
+  margin-right: 2rem;
+  padding: 1.5rem;
+  position: fixed;
+  top: 30%;
+}
+
+.cartTotal p {
+  color: #224957;
+  font-size: 1.15em;
+  font-weight: 700;
+}
+
+.purchase {
+  background: #7064e5;
+  border: 1px solid #7064e5;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 20px;
+  margin: auto;
+  transition: all 0.3s ease-in-out;
+}

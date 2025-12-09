@@ -1,31 +1,31 @@
 import React from "react";
 import { useLocation, Link } from "react-router-dom";
 import { CheckCircle } from "lucide-react";
-import "./orderSuccess.css"
+import styles from "../../../styles/component/orderSuccess.module.css";
 
-export const OrderSuccess = () => {
+export function OrderSuccess() {
   const query = new URLSearchParams(useLocation().search);
   const paymentIntent = query.get("payment_intent");
 
   return (
-    <div className="success-container">
-      <div className="success-card">
-        <CheckCircle className="success-icon" />
-        <h1 className="success-title">Payment Successful 🎉</h1>
-        <p className="success-message">
+    <div className={styles.successContainer}>
+      <div className={styles.successCard}>
+        <CheckCircle className={styles.successIcon} />
+        <h1 className={styles.successTitle}>Payment Successful 🎉</h1>
+        <p className={styles.successMessage}>
           Thank you! Your payment has been processed successfully.
         </p>
+
         {paymentIntent && (
-          <p className="payment-id">
+          <p className={styles.paymentId}>
             <strong>Payment ID:</strong> {paymentIntent}
           </p>
         )}
-        <Link to="/" className="home-button">
+
+        <Link to="/" className={styles.homeButton}>
           Go back to Home
         </Link>
       </div>
     </div>
   );
-};
-
-
+}

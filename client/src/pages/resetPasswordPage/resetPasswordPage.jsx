@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import { resetPasswordApi } from "../../api/users/users";
+import { resetPasswordApi } from "../../api/users/users.js";
 
 export function ResetPassword() {
   const passwordRef = useRef();

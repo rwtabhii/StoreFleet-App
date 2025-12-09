@@ -24,13 +24,13 @@ export const getUserCart = async (req, res, next) => {
     try {
         const userId = req.user._id;
         const cartDetail = await getCart(userId);
-        console.log(cartDetail)
+        // console.log(cartDetail)
         return res.status(200).json({
             success: true,
             allItems: cartDetail
         })
     } catch (err) {
-        console.log(err);
+        // console.log(err);
         next(err);
     }
 }
@@ -73,11 +73,11 @@ export const deleteUserCart = async (req, res, next) => {
 
 export const clearUserCart = async (req, res, next) => {
   try {
-    console.log(req.user._id)
+    // console.log(req.user._id)
     const userId = req.user._id;
 
     const deletedCount = await clearCart(userId);
-    console.log(deletedCount);
+    // console.log(deletedCount);
 
     if (deletedCount === 0) {
       return res.status(200).json({
@@ -91,7 +91,7 @@ export const clearUserCart = async (req, res, next) => {
       message: "Cart cleared successfully",
     });
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     next(err); // Pass to error handler
   }
 };

@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux"
 import { OrderTable } from "../orderTable"
-import { orderSelector } from "../../../redux/orderReducer/orderReducer"
+import { orderSelector } from "../../../redux/orderReducer/orderReducer.jsx"
 
 
 

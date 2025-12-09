@@ -1,0 +1,24 @@
+.orderContainer {
+  min-height: 80vh;
+  padding: 40px 0;
+}
+
+.heading {
+  text-align: center;
+  font-size: 2.25em;
+  font-weight: 700;
+}
+
+.spinnerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.errorMessage {
+  text-align: center;
+  color: red;
+  font-weight: 500;
+  margin-top: 2rem;
+}

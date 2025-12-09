@@ -5,7 +5,7 @@ import env from "../../dotenv.js";
 
 export const sendWelcomeEmail = async (user) => {
   // Write your code here
-  console.log(process.env.STORFLEET_SMPT_MAIL);
+  // console.log(process.env.STORFLEET_SMPT_MAIL);
   const transport = createTransport({
     service: env.SMPT_SERVICE,
     auth: {

@@ -1,17 +1,11 @@
-
-
 import { useRef } from "react";
 import { NavLink } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { forgetPasswordApi } from "../../api/users/users";
+import { forgetPasswordApi } from "../../api/users/users.js";
 
 
 export function ForgetPassword() {
   const emailRef = useRef();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const forgetPassoword = async (e) => {
     try {
@@ -26,8 +20,6 @@ export function ForgetPassword() {
       toast.error(err.response.data.error);
     }
   };
-
-
 
   return (
     <div className="formContainer">

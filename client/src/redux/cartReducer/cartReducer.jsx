@@ -4,7 +4,7 @@ import {
   addCartItemApi,
   removeCartItemApi,
   updateCartItemApi,
-} from "../../api/cart/cart";
+} from "../../api/cart/cart.js";
 
 // -------------------- Async Thunks --------------------
 
@@ -16,6 +16,7 @@ export const fetchCartItems = createAsyncThunk(
       console.log("thunk")
       const res = await getCartItemApi();
       // Make sure we return just the array of items
+      console.log(res)
       return res;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response?.data?.message || "Failed to fetch cart items");

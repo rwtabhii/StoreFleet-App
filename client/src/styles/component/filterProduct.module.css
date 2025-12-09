@@ -1,19 +1,32 @@
-.filter-container {
+.filterIcon {
+  display: none;
+  font-size: 2rem;
+  top: 12%;
+  left: 2%;
+  z-index: 9999;
+  cursor: pointer;
+}
+
+
+.filterContainer {
   background: #ffffff;
   border-radius: 12px;
   padding: 1.5rem;
-  width: 250px;
-  position: fixed;
+  width: 15em;
+  height: auto;
+  position: sticky;
+  flex-shrink: 0;
   top: 14%;
   left: 1%;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   font-family: "Poppins", sans-serif;
   display: flex;
   flex-direction: column;
+  align-self: flex-start;
   gap: 1rem;
 }
 
-.filter-title {
+.filterTitle {
   font-size: 1.4rem;
   font-weight: 600;
   color: #2e2e72;
@@ -21,20 +34,20 @@
   margin-bottom: 0.5rem;
 }
 
-.price-section {
+.priceSection {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
-.price-label {
+.priceLabel {
   font-weight: 500;
   color: #444;
   display: flex;
   justify-content: space-between;
 }
 
-.price-label span {
+.priceLabel span {
   color: #3c6ef1;
   font-weight: 600;
 }
@@ -45,7 +58,7 @@
   cursor: pointer;
 }
 
-.category-title {
+.categoryTitle {
   margin-top: 1rem;
   font-size: 1.1rem;
   color: #2e2e72;
@@ -73,7 +86,7 @@
   border-radius: 10px;
 }
 
-.category-item {
+.categoryItem {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -84,19 +97,16 @@
   transition: background 0.2s ease, transform 0.2s ease;
 }
 
-.category-item:hover {
+.categoryItem:hover {
   background: #f3f5ff;
   transform: scale(1.02);
 }
 
-.category-item input {
+.categoryItem input {
   transform: scale(1.1);
   accent-color: #3c6ef1;
 }
 
-
-
-/* 🔘 Button Container */
 .filterButtons {
   display: flex;
   justify-content: space-between;
@@ -104,7 +114,6 @@
   margin-top: 1.5rem;
 }
 
-/* 🌿 Common Button Styles */
 .filterButtons button {
   flex: 1;
   padding: 0.7rem 1rem;
@@ -116,38 +125,96 @@
   transition: all 0.25s ease;
 }
 
-/* ✅ Apply Button */
-.apply-btn {
+.applyBtn {
   background: linear-gradient(135deg, #4caf50, #2e7d32);
   color: white;
   box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
 }
 
-.apply-btn:hover {
+.applyBtn:hover {
   background: linear-gradient(135deg, #43a047, #1b5e20);
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(76, 175, 80, 0.4);
 }
 
-/* ❌ Clear Button */
-.clear-btn {
+.clearBtn {
   background: linear-gradient(135deg, #ff5252, #d32f2f);
   color: white;
   box-shadow: 0 4px 8px rgba(255, 82, 82, 0.3);
 }
 
-.clear-btn:hover {
+.clearBtn:hover {
   background: linear-gradient(135deg, #e53935, #b71c1c);
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(255, 82, 82, 0.4);
 }
 
-/* 📱 Responsive */
 @media (max-width: 600px) {
   .filterButtons {
     flex-direction: column;
   }
+
   .filterButtons button {
     width: 100%;
+  }
+}
+
+@media screen and (max-width: 1130px) {
+  .filterContainer {
+    top: 12%;
+  }
+}
+
+@media screen and (max-width: 853px) {
+  .filterContainer {
+    display: none;
+  }
+
+  .filterIcon {
+    display: block;
+    position: absolute;
+    top: -3%;
+    left: 64%;
+    z-index: 1;
+    color: #7064e5;
+  }
+
+  .filterContainer.hide {
+    display: none;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+  }
+
+  .filterContainer.show {
+    display: flex;
+    position: static;
+    margin: auto;
+    margin-bottom: 4%;
+    width: 95vw;
+    height: 31%;
+
+  }
+
+}
+@media screen and (max-width: 607px) {
+  .filterIcon{
+    display: block;
+    position: absolute;
+    top: -2%;
+    left: 64%;
+    z-index: 1;
+    color: #7064e5;
+  }
+}
+
+@media screen and (max-width: 607px) {
+  .filterIcon{
+    display: block;
+    position: absolute;
+    top: -1.5%;
+    left: 64%;
+    z-index: 1;
+    color: #7064e5;
   }
 }

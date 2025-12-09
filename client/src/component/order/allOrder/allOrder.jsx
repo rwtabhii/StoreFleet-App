@@ -1,31 +1,29 @@
-import React, { useState } from "react";
-import "./allOrder.css";
+import React from "react";
 import { useDispatch } from "react-redux";
-import { updateOrderByAdmin,updateOrderLocally } from "../../../redux/orderReducer/orderReducer";
+import { updateOrderByAdmin, updateOrderLocally } from "../../../redux/orderReducer/orderReducer.jsx";
+import styles from "../../../styles/component/allOrder.module.css";
 
 export function AllOrder({ order }) {
     const dispatch = useDispatch();
 
     const handleStatusChange = (e) => {
-
         const newStatus = e.target.value;
         dispatch(updateOrderLocally({ id: order._id, update: { orderStatus: newStatus } }));
-        dispatch(updateOrderByAdmin({ id: order._id, update: { orderStatus: newStatus } }))
+        dispatch(updateOrderByAdmin({ id: order._id, update: { orderStatus: newStatus } }));
     };
 
     const handlePaymentChange = (e) => {
         const newPayment = e.target.value;
         dispatch(updateOrderLocally({ id: order._id, update: { paymentInfo: { status: newPayment } } }));
-        dispatch(updateOrderByAdmin({ id: order._id, update: { paymentInfo: { status: newPayment } } }))
+        dispatch(updateOrderByAdmin({ id: order._id, update: { paymentInfo: { status: newPayment } } }));
     };
 
     return (
-        <div className="order-card">
+        <div className={styles.orderCard}>
             <h3>Order ID: {order._id}</h3>
             <p><strong>Created At:</strong> {new Date(order.createdAt).toLocaleString()}</p>
             <p><strong>User:</strong> {order.user?.name || "N/A"}</p>
-            <p><strong>Email:</strong>{order.user?.email || "No Email"}</p>
-
+            <p><strong>Email:</strong> {order.user?.email || "No Email"}</p>
 
             <p>
                 <strong>Status:</strong>
@@ -44,15 +42,16 @@ export function AllOrder({ order }) {
                     <option value="true">Success</option>
                 </select>
             </p>
+
             <p><strong>Total:</strong> ₹{order.totalPrice}</p>
 
-            <div className="shipping-info">
+            <div className={styles.shippingInfo}>
                 <h4>Shipping Info</h4>
                 <p>{order.shippingInfo.address}, {order.shippingInfo.state}, {order.shippingInfo.country} - {order.shippingInfo.pincode}</p>
                 <p>Phone: {order.shippingInfo.phoneNumber}</p>
             </div>
 
-            <div className="order-items">
+            <div className={styles.orderItems}>
                 <h4>Ordered Items</h4>
                 <ul>
                     {order.orderedItems.map((item, idx) => (

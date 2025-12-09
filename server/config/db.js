@@ -10,6 +10,7 @@ export const connectDB = async () => {
     });
     console.log(`mongodb connected with server`);
   } catch (error) {
+    
     console.log("mongodb connection failed!");
     console.log(error);
   }

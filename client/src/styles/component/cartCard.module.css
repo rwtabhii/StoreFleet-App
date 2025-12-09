@@ -43,7 +43,6 @@
   color: #333;
   line-height: 1.4;
   height: 40px;
-  /* keeps consistent height for all cards */
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -77,10 +76,10 @@
   align-items: center;
 }
 
-.decrement i{
+.decrement i {
   margin-right: 5px;
 }
 
-.increment i{
+.increment i {
   margin-left: 5px;
 }

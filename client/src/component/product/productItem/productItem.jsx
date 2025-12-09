@@ -1,11 +1,10 @@
-import { ProductCard } from "../productCard/productCard"
-import "./productItem.css"
+import { ProductCard } from "../productCard/productCard.jsx";
+import styles from "../../../styles/component/productItem.module.css";
 
-export function ProuctItem({ product }) {
-
-    return (
-        <div className="productItem">
-            <ProductCard product={product} />
-        </div>
-    );
+export function ProductItem({ product }) {
+  return (
+    <div className={styles.productItem}>
+      <ProductCard product={product} />
+    </div>
+  );
 }

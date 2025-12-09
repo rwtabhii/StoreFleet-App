@@ -1,12 +1,13 @@
-import "./orderTable.css"
+import styles from "../../styles/component/orderTable.module.css";
 
 export function OrderTable({ order }) {
-  
     return (
-        <div className="orderTable">
-            <div className="order-date">Order on : {new Date(order.createdAt).toLocaleDateString()}</div>
-            {/* ordertable */}
-            <table class="Order-Table">
+        <div className={styles.orderTable}>
+            <div className={styles.orderDate}>
+                Order on : {new Date(order.createdAt).toLocaleDateString()}
+            </div>
+
+            <table className={styles.orderTableTable}>
                 <thead>
                     <tr>
                         <th>Title</th>
@@ -27,20 +28,19 @@ export function OrderTable({ order }) {
                 </tbody>
                 <tfoot>
                     <tr className="totalPrice">
-                        <td colspan="3"><strong>Total:</strong></td>
+                        <td colSpan="3"><strong>Total:</strong></td>
                         <td><strong>{order.totalPrice}</strong></td>
                     </tr>
-                      <tr className="OrderStatus">
-                        <td colspan="3"><strong>Order Status:</strong></td>
+                    <tr className="OrderStatus">
+                        <td colSpan="3"><strong>Order Status:</strong></td>
                         <td><strong>{order.orderStatus}</strong></td>
                     </tr>
-                      <tr className="PaymentMethod">
-                        <td colspan="3"><strong>Payment Mehtod:</strong></td>
+                    <tr className="PaymentMethod">
+                        <td colSpan="3"><strong>Payment Method:</strong></td>
                         <td><strong>{order.paymentInfo.type}</strong></td>
                     </tr>
                 </tfoot>
             </table>
-
         </div>
-    )
+    );
 }

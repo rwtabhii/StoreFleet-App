@@ -1,6 +1,6 @@
 # 🏩 StoreFleet - Full-Stack E-commerce Application
 
-**StoreFleet** is a modern full-stack e-commerce application with a **Node.js + Express backend** and a **React + Vite frontend** It supports full user management, product handling, order processing, and secure authentication/authorization mechanisms, with a responsive, interactive UI.
+StoreFleet is a modern full-stack e-commerce application with a Node.js + Express backend and a React + Vite frontend, supporting secure authentication, product browsing, order management, cart system, admin dashboard, and Stripe payment integration.
 
 ---
 
