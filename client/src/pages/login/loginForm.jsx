@@ -31,7 +31,8 @@ export function LoginForm() {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = "http://localhost:3000/api/storefleet/user/auth/google";
+    console.log(import.meta.env.VITE_PROD_API_URL)
+    window.location.href = `${import.meta.env.VITE_PROD_API_URL}/api/storefleet/user/auth/google`;
   };
 
   return (

@@ -7,7 +7,7 @@ passport.use(
     {
       clientID: env.GOOGLE_CLIENT_ID,
       clientSecret: env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "http://localhost:3000/api/storefleet/user/auth/google/callback",
+      callbackURL: `${env.PORT}/api/storefleet/user/auth/google/callback`,
     },
     async (accessToken, refreshToken, profile, done) => {
       try {

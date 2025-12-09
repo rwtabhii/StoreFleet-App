@@ -3,7 +3,7 @@ import api from "../api.js";
 // Get all orders of the logged-in user
 export async function getOrderApi() {
   try {
-    const res = await api.get("/storefleet/order/my/orders");
+    const res = await api.get("/api/storefleet/order/my/orders");
     // console.log("your order is ", res.data.orders);
     return res.data.orders;
   } catch (error) {
@@ -15,7 +15,7 @@ export async function getOrderApi() {
 // Add a new order
 export async function addOrderApi(data) {
   try {
-    const res = await api.post("/storefleet/order/new", data);
+    const res = await api.post("/api/storefleet/order/new", data);
     return res.data;
   } catch (error) {
     console.error("Error adding order:", error);
@@ -26,7 +26,7 @@ export async function addOrderApi(data) {
 // Get all orders (admin)
 export const showAllOrders = async () => {
   try {
-    const res = await api.get("/storefleet/order/orders/placed");
+    const res = await api.get("/api/storefleet/order/orders/placed");
     console.log("All orders:", res.data);
     return res.data.AllOrders;
   } catch (err) {
@@ -38,7 +38,7 @@ export const showAllOrders = async () => {
 // Update order by ID
 export const updateOrderApi = async (id, update) => {
   try {
-    const res = await api.put(`/storefleet/order/update/${id}`, update);
+    const res = await api.put(`/api/storefleet/order/update/${id}`, update);
     return res.data;
   } catch (err) {
     console.error("Error updating order:", err);
@@ -49,7 +49,7 @@ export const updateOrderApi = async (id, update) => {
 // Get orders of a specific user (admin)
 export const getUserOrderByAdmin = async (id) => {
   try {
-    const res = await api.get(`/storefleet/order/user/allorder/${id}`);
+    const res = await api.get(`/api/storefleet/order/user/allorder/${id}`);
     console.log("API call result:", res.data);
     return res.data;
   } catch (err) {

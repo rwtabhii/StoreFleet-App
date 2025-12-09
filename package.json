@@ -1,5 +1,5 @@
 {
-  "name": "storefleet-app",
+  "name": "Storefleet-App",
   "version": "1.0.0",
   "description": "This is a Full Stack Project of the StoreFleel based on the React on the Frontend Nodejs , Expressjs & MongoDb on the Backend ",
   "main": "index.js",

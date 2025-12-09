@@ -1,6 +1,6 @@
 {
   "type": "module",
-  "name": "not_decided",
+  "name": "Storefleet-backend",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
