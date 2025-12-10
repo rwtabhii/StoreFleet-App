@@ -57,6 +57,7 @@ StoreFleet/
 │   │   ├── user/
 │   │   ├── product/
 │   │   ├── order/
+|   |   ├── payment/
 │   ├── middlewares/
 │   ├──utils/
 │   ├── server.js

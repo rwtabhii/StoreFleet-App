@@ -6,7 +6,7 @@
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.section-title {
+.sectiontitle {
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 15px;
@@ -20,14 +20,13 @@
   margin-bottom: 15px;
 }
 
-input[type="text"],
-input[type="number"],
-input[type="email"] {
+.checkoutformfill {
   width: 100%;
   padding: 10px 12px;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 15px;
+  margin: 2px;
 }
 
 input:focus {
@@ -35,7 +34,7 @@ input:focus {
   outline: none;
 }
 
-.stripe-payment-box {
+.stripepaymentbox {
   margin-top: 20px;
   padding: 15px;
   border-radius: 8px;
@@ -43,7 +42,7 @@ input:focus {
   border: 1px solid #ddd;
 }
 
-.checkout-btn {
+.checkoutbtn {
   background: #007bff;
   color: white;
   border: none;
@@ -56,11 +55,11 @@ input:focus {
   transition: background 0.3s ease;
 }
 
-.checkout-btn:hover {
+.checkoutbtn:hover {
   background: #0056b3;
 }
 
-.payment-message {
+.paymentmessage {
   margin-top: 10px;
   font-size: 14px;
   color: red;

@@ -5,9 +5,8 @@ import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { addOrderApi } from "../../../api/order/orderApi";
 import { clearCart } from "../../../redux/cartReducer/cartReducer.jsx";
-import { clearCartApi } from "../../../api/cart/cart.js";
 
-// ⬅️ import the module file
+import { clearCartApi } from "../../../api/cart/cart.js";
 import styles from "../../../styles/component/checkoutForm.module.css";
 
 export function CheckoutForm({ items, clientSecret }) {
@@ -110,6 +109,7 @@ export function CheckoutForm({ items, clientSecret }) {
           type="text"
           name="fullName"
           placeholder="Full Name"
+          className={styles.checkoutformfill}
           value={formData.fullName}
           onChange={handleChange}
           required
@@ -118,6 +118,7 @@ export function CheckoutForm({ items, clientSecret }) {
           type="text"
           name="phone"
           placeholder="Phone Number"
+          className={styles.checkoutformfill}
           value={formData.phone}
           onChange={handleChange}
           required
@@ -128,6 +129,7 @@ export function CheckoutForm({ items, clientSecret }) {
         type="text"
         name="address"
         placeholder="Street Address"
+        className={styles.checkoutformfill}
         value={formData.address}
         onChange={handleChange}
         required
@@ -139,6 +141,7 @@ export function CheckoutForm({ items, clientSecret }) {
           name="city"
           placeholder="City"
           value={formData.city}
+          className={styles.checkoutformfill}
           onChange={handleChange}
           required
         />
@@ -146,6 +149,7 @@ export function CheckoutForm({ items, clientSecret }) {
           type="text"
           name="postalCode"
           placeholder="Postal Code"
+          className={styles.checkoutformfill}
           value={formData.postalCode}
           onChange={handleChange}
           required
@@ -156,7 +160,7 @@ export function CheckoutForm({ items, clientSecret }) {
         <PaymentElement />
       </div>
 
-      <button className={styles.checkoutBtn} type="submit" disabled={loading}>
+      <button className={styles.checkoutbtn} type="submit" disabled={loading}>
         {loading ? "Processing..." : `Pay ₹${total}`}
       </button>
 
