@@ -47,11 +47,14 @@ export const fetchLoggedInUser = createAsyncThunk(
     try {
       // Use central api instance
       const res = await api.get("/api/storefleet/user/me");
-      console.log(res)
-
+      if (!res.data.success) {
+        return thunkAPI.rejectWithValue("Not logged in");
+      }
+      console.log(res.data)
+      
       return res.data; // backend returns user object
     } catch (err) {
-      console.error("Failed to fetch logged-in user:", err);
+      // console.error("Failed to fetch logged-in user:", err);
       return thunkAPI.rejectWithValue(err.response?.data?.message || "Failed to fetch user");
     }
   }

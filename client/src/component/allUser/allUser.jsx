@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import styles from "../../styles/component/alluser.module.css";
+import styles from "../../styles/component/allUser.module.css";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { adminSelector, removeUser, updateUserRole } from "../../redux/adminReducer/adminReducer.jsx";

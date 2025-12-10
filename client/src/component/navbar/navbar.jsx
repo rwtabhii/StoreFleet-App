@@ -13,7 +13,7 @@ export function Navbar() {
 
     useEffect(() => {
     if (!login) {
-        console.log("userdetails",userDetail)
+        // console.log("userdetails",userDetail)
       dispatch(fetchLoggedInUser());
     }
   }, []);
