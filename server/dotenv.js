@@ -15,7 +15,8 @@ const env = {
   GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
   GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
   STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
-  RESEND_API_KEY: process.env.RESEND_API_KEY
+  RESEND_API_KEY: process.env.RESEND_API_KEY,
+  NODE_ENV: process.env.NODE_ENV
 };
 
 export default env;

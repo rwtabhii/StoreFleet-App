@@ -3,6 +3,7 @@ import styles from "../../styles/component/navbar.module.css";
 import appLogo from "../../assets/applogo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { authSelector, logout, fetchLoggedInUser } from "../../redux/authReducer/authReducer.jsx";
+import { logoutUser } from "../../api/users/users.js";
 import { useEffect } from "react";
 
 export function Navbar() {
@@ -10,16 +11,23 @@ export function Navbar() {
     const { login, userDetail } = useSelector(authSelector);
     const dispatch = useDispatch();
 
-//     useEffect(() => {
-//     if (login) {
-//         console.log("userdetails",userDetail)
-//       dispatch(fetchLoggedInUser());
-//     }
-//   }, [dispatch, login]);
+    useEffect(() => {
+    if (!login) {
+        console.log("userdetails",userDetail)
+      dispatch(fetchLoggedInUser());
+    }
+  }, []);
 
-    const userLogout = () => {
-        dispatch(logout(false));
-    };
+    const userLogout = async () => {
+  try {
+    // Call the backend API to clear the cookie
+    const response = await logoutUser(); 
+    // console.log(response.msg);
+    dispatch(logout(false)); // or however your logout action is defined
+  } catch (err) {
+    console.error("Failed to logout:", err);
+  }
+};
 
     return (
         <div className={styles.navbarContainer}>

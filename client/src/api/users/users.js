@@ -25,7 +25,7 @@ export async function loginUser(data) {
 
 export async function logoutUser() {
   try {
-    const response = await api.post("/api/storefleet/user/logout", {});
+    const response = await api.get("/api/storefleet/user/logout", {});
     console.log("Logout successful:", response.data);
     return response.data;
   } catch (err) {

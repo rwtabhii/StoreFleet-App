@@ -61,11 +61,15 @@ export const userLogin = async (req, res, next) => {
 };
 // logout user
 export const logoutUser = async (req, res, next) => {
+  const isProduction = process.env.NODE_ENV === "production";
+
   res
     .status(200)
-    .cookie("token", null, {
-      expires: new Date(Date.now()),
+    .cookie("token", "", {
+      expires: new Date(0),
       httpOnly: true,
+      secure: isProduction,
+      sameSite: isProduction ? "None" : "Lax",
     })
     .json({ success: true, msg: "logout successful" });
 };
