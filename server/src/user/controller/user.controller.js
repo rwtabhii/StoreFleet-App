@@ -73,6 +73,7 @@ export const logoutUser = async (req, res, next) => {
 export const forgetPassword = async (req, res, next) => {
   // Implement feature for forget password
   try {
+    console.log("this controller work")
     const { email } = req.body;
     const user = await findUserRepo({ email });
 
@@ -96,6 +97,7 @@ export const forgetPassword = async (req, res, next) => {
       .status(200)
       .json({ success: true, msg: "Password reset email sent successfully" });
   } catch (error) {
+    console.log(error)
     return next(new ErrorHandler(500, error));
   }
 
