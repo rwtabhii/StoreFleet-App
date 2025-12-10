@@ -92,7 +92,7 @@
 
 import { Resend } from "resend";
 import env from "../../dotenv.js";
-
+console.log(env)
 const resend = new Resend(env.RESEND_API_KEY);
 
 export const sendPasswordResetEmail = async (user, resetPasswordURL) => {
