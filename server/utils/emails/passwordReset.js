@@ -5,6 +5,7 @@ import env from "../../dotenv.js";
 
 export const sendPasswordResetEmail = async (user, resetPasswordURL) => {
     console.log("password reset function inside")
+    console.log(env)
   const transporter = nodemailer.createTransport({
     service: env.SMTP_SERVICE,
     auth: {
