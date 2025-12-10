@@ -6,7 +6,7 @@ import env from "../dotenv.js";
 
 export const auth = async (req, res, next) => {
   const { token } = req.cookies;
-  // console.log(req.cookies)
+  // console.log("user Cookie",req.cookies)
   if (!token) {
     return next(new ErrorHandler(401, "login to access this route!"));
   }
