@@ -34,6 +34,7 @@ app.use(helmet())
 const corsOption = {
   origin: "http://localhost:5173", // frontend URL
   credentials: true,               // allow cookies/sessions
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
 };
 app.use(cors(corsOption));
