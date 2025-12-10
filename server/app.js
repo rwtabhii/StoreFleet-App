@@ -32,7 +32,7 @@ const app = express();
 app.use(helmet())
 // 🧩 CORS Setup
 const corsOption = {
-  origin: "http://localhost:5173", // frontend URL
+  origin: ["http://localhost:5173","https://storefleet-app1.onrender.com"], // frontend URL
   credentials: true,               // allow cookies/sessions
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
