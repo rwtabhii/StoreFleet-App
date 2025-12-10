@@ -7,6 +7,9 @@ export const sendToken = async (user, res, statusCode) => {
       Date.now() + env.COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
     ),
     httpOnly: true,
+    secure: true,      // only send cookie over HTTPS
+sameSite: "None",  // required for cross-origin (frontend != backend)
+
   };
   res
     .status(statusCode)
