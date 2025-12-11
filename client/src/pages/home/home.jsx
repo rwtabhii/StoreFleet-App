@@ -80,7 +80,7 @@ export function Home() {
               {[...Array(totalPages)].map((_, idx) => (
                 <button
                   key={idx + 1}
-                  className={currentPage === idx + 1 ? "active" : ""}
+                  className={currentPage === idx + 1 ? styles.active : ""}
                   onClick={() => handlePageChange(idx + 1)}
                 >
                   {idx + 1}
