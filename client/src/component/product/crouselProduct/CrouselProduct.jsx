@@ -1,9 +1,10 @@
+import React from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { offerProducts } from "../../../data/offerProduct.js";
 import styles from "../../../styles/component/crouselProduct.module.css";
 
-export function CrouselProduct() {
+function CrouselProductComponent() {
   return (
     <Carousel
       className={styles.carouselBox}
@@ -26,3 +27,5 @@ export function CrouselProduct() {
     </Carousel>
   );
 }
+
+export const CrouselProduct = React.memo(CrouselProductComponent);

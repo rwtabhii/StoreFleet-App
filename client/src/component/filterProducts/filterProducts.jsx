@@ -1,3 +1,4 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import { CiFilter } from "react-icons/ci";
 
@@ -9,7 +10,7 @@ import {
   clearFilter,
 } from "../../redux/productReducer/productReducer.jsx";
 
-export function FilterProduct() {
+function FilterProductComponent() {
   const { isFiltered, filterObj } = useSelector(productSelector);
   const dispatch = useDispatch();
 
@@ -160,3 +161,6 @@ export function FilterProduct() {
     </>
   );
 }
+
+
+export const FilterProduct = React.memo(FilterProductComponent);

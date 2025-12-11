@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { GridLoader } from "react-spinners";
 import { useDispatch, useSelector } from "react-redux";
-
-import { FilterProduct } from "../../component/filterProducts/filterProducts.jsx";
+import {FilterProduct} from "../../component/filterProducts/filterProducts.jsx"
 import { ProductList } from "../../component/product/productList/productList.jsx";
-import { CrouselProduct } from "../../component/product/crouselProduct/CrouselProduct.jsx";
+import {CrouselProduct} from "../../component/product/crouselProduct/CrouselProduct.jsx"
 import styles from "../../styles/pages/home.module.css";
 import { fetchProducts, productSelector } from "../../redux/productReducer/productReducer.jsx";
 
@@ -32,10 +31,14 @@ export function Home() {
     return () => clearTimeout(delayDebounce);
   }, [searchTerm, isFiltered, filterObj, dispatch]);
 
-  const handlePageChange = (page) => {
-    if (page < 1 || page > totalPages) return;
-    dispatch(fetchProducts({ ...filterObj, page }));
-  };
+const handlePageChange = (page) => {
+  if (page < 1 || page > totalPages) return;
+  dispatch(fetchProducts({ ...filterObj, page }));
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth", // smooth scrolling
+  });
+};
 
   return (
     <div className={styles.homeContainer}>
