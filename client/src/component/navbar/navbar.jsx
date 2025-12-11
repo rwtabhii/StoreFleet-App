@@ -33,7 +33,7 @@ export function Navbar() {
         <div className={styles.navbarContainer}>
             {/* Logo */}
             <div className={styles.navbarLogo} onClick={() => navigate("/")}>
-                <img src={appLogo} alt="logo" /> StoreFleet
+                <img src={appLogo} alt="logo" />StoreFleet
             </div>
 
             {/* Links */}
