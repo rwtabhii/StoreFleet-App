@@ -17,7 +17,6 @@ const env = {
   STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
   RESEND_API_KEY: process.env.RESEND_API_KEY,
   NODE_ENV: process.env.NODE_ENV,
-  SMTP_PORT: process.env.SMTP_PORT
 };
 
 export default env;
