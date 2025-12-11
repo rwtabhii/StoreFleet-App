@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { GridLoader } from "react-spinners";
 import { toast } from "react-toastify";
 import { UserDetail } from "../../component/allUser/allUser.jsx";
 import { Outlet } from "react-router-dom";
@@ -15,10 +16,14 @@ export function AllUserPage() {
     dispatch(fetchAllUsers());
   }, [dispatch]);
 
-  if (loading) return <p>Loading users...</p>;
+  if (loading) return  <div className={styles.spinnerContainer}>
+            <GridLoader color="#36d7b7" loading={loading} size={20} />
+          </div>;
   if (error) {
     toast.error(error);
-    return <p>Failed to load users.</p>;
+    return  <div className={styles.errorMessage}>
+              ❌ Failed to fetch Users.
+            </div>;
   }
 
   return (
