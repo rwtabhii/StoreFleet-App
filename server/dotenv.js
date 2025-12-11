@@ -16,7 +16,8 @@ const env = {
   GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
   STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
   RESEND_API_KEY: process.env.RESEND_API_KEY,
-  NODE_ENV: process.env.NODE_ENV
+  NODE_ENV: process.env.NODE_ENV,
+  SMTP_PORT: process.env.SMTP_PORT
 };
 
 export default env;
