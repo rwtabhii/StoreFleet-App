@@ -31,7 +31,7 @@ export function LoginForm() {
   };
 
   const handleGoogleLogin = () => {
-    console.log(import.meta.env.VITE_PROD_API_URL)
+    // console.log(import.meta.env.VITE_PROD_API_URL)
     window.location.href = `${import.meta.env.VITE_PROD_API_URL}/api/storefleet/user/auth/google`;
   };
 
