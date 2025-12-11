@@ -6,6 +6,19 @@
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
+.spinnerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.errorMessage {
+  text-align: center;
+  color: red;
+  font-weight: 500;
+  margin-top: 3rem;
+}
 
 .ordersTitle {
   font-size: 28px;

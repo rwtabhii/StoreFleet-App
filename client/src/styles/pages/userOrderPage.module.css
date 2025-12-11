@@ -24,6 +24,18 @@
 .backLink:hover {
   text-decoration: underline;
 }
+.spinnerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.errorMessage {
+  text-align: center;
+  color: red;
+  font-weight: 500;
+  margin-top: 3rem;
+}
 
 .ordersList {
   display: flex;
