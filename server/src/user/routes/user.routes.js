@@ -42,7 +42,7 @@ router.route("/logout").get(auth, logoutUser);
 router.route("/auth/google").get(passport.authenticate("google", { scope: ["profile", "email"] }));
 // 2. google redirect back
 router.route("/auth/google/callback").get(
-  passport.authenticate("google", { failureRedirect: "http://localhost:5173/login" }),
+  passport.authenticate("google", { failureRedirect: "https://storefleet-app1.onrender.com/login" }),
   async (req, res) => {
     try {
       // 1️⃣ Get the logged-in user from Passport
@@ -74,10 +74,10 @@ router.route("/auth/google/callback").get(
       res.cookie("token", token, cookieOptions);
 
       // 6️⃣ Redirect to frontend (home page)
-      res.redirect("http://localhost:5173/");
+      res.redirect("https://storefleet-app1.onrender.com/");
     } catch (error) {
       // console.error("Error in Google callback:", error);
-      res.redirect("http://localhost:5173/login");
+      res.redirect("https://storefleet-app1.onrender.com/login");
     }
   }
 );
