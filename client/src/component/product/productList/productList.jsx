@@ -10,7 +10,7 @@ export function ProductList({ searchTerm }) {
   const { showProducts, isLoading, error, isFiltered, filterObj, currentPage, totalPages } = useSelector(productSelector);
   //  first render load
   useEffect(() => {
-    dispatch(fetchProducts({ page: 1 }));
+
   }, []);
 
   // 🔥 run only when filters/search change
@@ -18,8 +18,10 @@ export function ProductList({ searchTerm }) {
     const delayDebounce = setTimeout(() => {
       if (searchTerm.trim() !== "") {
         dispatch(fetchProducts({ ...filterObj, keyword: searchTerm, page: 1 }));
+        console.log("search product")
       } else if (isFiltered) {
         dispatch(fetchProducts({ ...filterObj, page: 1 }));
+        console.log("filter ")
       }
     }, 500);
 

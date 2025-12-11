@@ -1,13 +1,24 @@
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import {  useEffect, useState } from "react";
+
 import { FilterProduct } from "../../component/filterProducts/filterProducts.jsx"
 import { ProductList } from "../../component/product/productList/productList.jsx";
 import { CrouselProduct } from "../../component/product/crouselProduct/CrouselProduct.jsx"
 import styles from "../../styles/pages/home.module.css";
-import { productSelector } from "../../redux/productReducer/productReducer.jsx";
+import { useSelector,useDispatch } from "react-redux";
+import { fetchProducts, productSelector} from "../../redux/productReducer/productReducer.jsx";
 
 export function Home() {
   const [searchTerm, setSearchTerm] = useState("");
+const dispatch = useDispatch()
+const {isFiltered} = useSelector(productSelector)
+
+useEffect(()=>{
+  console.log(isFiltered)
+ if(!isFiltered && searchTerm === ""){
+   dispatch(fetchProducts({page:1}))}
+   console.log("firest render home")
+},[])
+ 
   return (
     <div className={styles.homeContainer}>
       <div className={styles.searchBar}>

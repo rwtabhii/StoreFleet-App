@@ -53,14 +53,13 @@ function FilterProductComponent() {
     const selectedCategories = Object.keys(category).filter(
       (cat) => category[cat]
     );
-
-    dispatch(
-      fetchProducts({
-        minPrice,
-        maxPrice,
-        category: selectedCategories,
-      })
-    );
+      dispatch(
+        fetchProducts({
+          minPrice,
+          maxPrice,
+          category: selectedCategories,
+        })
+      );
   };
 
   const handleClearFilters = () => {
@@ -97,9 +96,8 @@ function FilterProductComponent() {
 
       {/* 👇 Condition for mobile: only show when showFilter = true */}
       <div
-        className={`${styles.filterContainer} ${
-          showFilter ? styles.show : styles.hide
-        }`}
+        className={`${styles.filterContainer} ${showFilter ? styles.show : styles.hide
+          }`}
       >
         <h2 className={styles.filterTitle}>🔍 Filter Products</h2>
 
