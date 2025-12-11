@@ -26,15 +26,17 @@ export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
   async (data, thunkAPI) => {
     try {
-      console.log(data,"thunk")
+      console.log(data, "thunk")
       const products = await getProductApi(data);
       // ✅ detect if filters exist (price, category, search)
+      console.log(products, "products")
       const hasFilter =
-        (!!data.maxPrice && data.maxPrice !== 0) ||
-        (!!data.category && Object.keys(data.category).length > 0) ||
-        (!!data.keyword && data.keyword.trim() !== "");
+        (data.maxPrice !== undefined && data.maxPrice < 75000) ||
+        (data.category && data.category.length > 0) ||
+        (data.keyword && data.keyword.trim() !== "");
 
-      if (hasFilter) { thunkAPI.dispatch(setFilterState({ hasFilter, price: data.maxPrice, category: data.category }));; }
+
+      if (hasFilter) { thunkAPI.dispatch(setFilterState({ isFiltered: hasFilter, price: data.maxPrice, category: data.category, keyword: data.keyword }));; }
 
       return products;
     } catch (err) {
@@ -115,6 +117,7 @@ const productSlice = createSlice({
     //   }
     // },
     clearFilter: (state, action) => {
+      state.isFiltered = false
       state.filterObj.category = []
       state.filterObj.price = 75000
       state.filterObj.keyword = ""
@@ -134,7 +137,12 @@ const productSlice = createSlice({
         // ✅ Extract products from the response object
         // const { getProduct = [], currentPage, totalPage, totalProducts } = action.payload;
         state.allProducts = action.payload.getProduct;
-        state.showProducts = action.payload.getProduct;
+        if (!state.isFiltered) {
+          state.showProducts = action.payload.getProduct;
+        } else {
+          // filter results come already filtered from backend
+          state.showProducts = action.payload.getProduct;
+        }
         state.previousSearchProducts = action.payload.getProduct;
         // Optional: store pagination info in state
         state.currentPage = action.payload.currentpage;
