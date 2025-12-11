@@ -48,7 +48,7 @@ router.route("/auth/google/callback").get(
       // 1️⃣ Get the logged-in user from Passport
       const user = req.user;
       // console.log(user)
-
+      const isProduction = process.env.NODE_ENV === "production";
       // 2️⃣ Generate JWT token
       const token = jwt.sign(
         { id: user._id },
@@ -66,8 +66,8 @@ router.route("/auth/google/callback").get(
           Date.now() + env.COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
         ),
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
+        secure: isProduction,                  // true only in production
+        sameSite: isProduction ? "None" : "Lax",
       };
 
       // 5️⃣ Set token in cookie
@@ -76,7 +76,7 @@ router.route("/auth/google/callback").get(
       // 6️⃣ Redirect to frontend (home page)
       res.redirect("https://storefleet-app1.onrender.com/");
     } catch (error) {
-      // console.error("Error in Google callback:", error);
+      console.error("Error in Google callback:", error);
       res.redirect("https://storefleet-app1.onrender.com/login");
     }
   }

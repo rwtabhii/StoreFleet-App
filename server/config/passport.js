@@ -7,7 +7,7 @@ passport.use(
     {
       clientID: env.GOOGLE_CLIENT_ID,
       clientSecret: env.GOOGLE_CLIENT_SECRET,
-      callbackURL: `${env.PORT}/api/storefleet/user/auth/google/callback`,
+      callbackURL: `https://storefleet-app.onrender.com/api/storefleet/user/auth/google/callback`,
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
