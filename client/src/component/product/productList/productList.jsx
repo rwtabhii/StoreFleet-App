@@ -8,10 +8,6 @@ import { productSelector, fetchProducts } from "../../../redux/productReducer/pr
 export function ProductList({ searchTerm }) {
   const dispatch = useDispatch();
   const { showProducts, isLoading, error, isFiltered, filterObj, currentPage, totalPages } = useSelector(productSelector);
-  //  first render load
-  useEffect(() => {
-
-  }, []);
 
   // 🔥 run only when filters/search change
   useEffect(() => {
