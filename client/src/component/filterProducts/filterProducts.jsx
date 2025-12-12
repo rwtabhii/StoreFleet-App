@@ -1,7 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { CiFilter } from "react-icons/ci";
-
 import styles from "../../styles/component/filterProduct.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -60,16 +59,18 @@ function FilterProductComponent() {
           category: selectedCategories,
         })
       );
+      console.log("filter category of filter compoenent")
   };
 
   const handleClearFilters = () => {
     dispatch(clearFilter());
+    setMaxPrice(75000)
     dispatch(fetchProducts({ page: 1 }));
   };
 
   useEffect(() => {
-    if (filterObj.price !== undefined) {
-      setMaxPrice(filterObj.price);
+    if (filterObj.MaxPrice !== undefined) {
+      setMaxPrice(filterObj.MaxPrice);
     }
 
     const updatedCategories = {};
@@ -84,7 +85,7 @@ function FilterProductComponent() {
     }
 
     setCategory(updatedCategories);
-  }, [filterObj.price, filterObj.category]);
+  }, [filterObj.MaxPrice, filterObj.category]);
 
   return (
     <>
@@ -118,6 +119,7 @@ function FilterProductComponent() {
               className={styles.priceRange}
             />
           </div>
+          <span>Result Price : {filterObj.maxPrice}</span>
 
           {/* CATEGORY */}
           <h3 className={styles.categoryTitle}>Categories</h3>

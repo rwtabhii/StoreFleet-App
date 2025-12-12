@@ -7,7 +7,7 @@ const initialState = {
   searchProducts: [],
   previousSearchProducts: [],
   filterObj: {
-    price: 75000,
+    maxPrice: 75000,
     category: [], // {electronics: true, fashion: false}
     keyword: "",
   },
@@ -65,7 +65,7 @@ const productSlice = createSlice({
       state.isFiltered = isFiltered;
 
       if (price !== undefined && price !== null) {
-        state.filterObj.price = price;
+        state.filterObj.maxPrice = price;
       }
 
       if (category !== undefined) {
@@ -119,7 +119,7 @@ const productSlice = createSlice({
     clearFilter: (state, action) => {
       state.isFiltered = false
       state.filterObj.category = []
-      state.filterObj.price = 75000
+      state.filterObj.maxPrice = 75000
       state.filterObj.keyword = ""
     }
   },
