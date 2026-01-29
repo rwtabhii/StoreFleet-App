@@ -69,7 +69,7 @@ flex-direction: column;
   .productList {
     gap: 1rem;
     grid-template-columns: repeat(auto-fit, minmax(12em, 1fr));
-    margin: 3em 0em 18em 2em;
+    margin: 3em 0em 2em 2em;
   }
   
 }
