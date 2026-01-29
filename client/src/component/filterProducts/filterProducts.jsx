@@ -13,7 +13,7 @@ function FilterProductComponent() {
   const { isFiltered, filterObj } = useSelector(productSelector);
   const dispatch = useDispatch();
 
-  const [showFilter, setShowFilter] = useState(false); // 👈 NEW STATE
+  const [showFilter, setShowFilter] = useState(false); 
 
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(75000);

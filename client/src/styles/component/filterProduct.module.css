@@ -148,6 +148,36 @@
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(255, 82, 82, 0.4);
 }
+@media screen and (max-width: 1334px) {
+  .filterContainer {
+    display: none;
+  }
+
+  .filterIcon {
+    display: block;
+    position: absolute;
+    top: 5%;
+    left: 64%;
+    z-index: 1;
+    color: #7064e5;
+  }
+
+  .filterContainer.hide {
+    display: none;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+  }
+  .filterContainer.show {
+    display: flex;
+    position: static;
+    margin: auto;
+    margin-bottom: 4%;
+    width: 95vw;
+    height: 31%;
+
+  }
+}
 
 @media (max-width: 600px) {
   .filterButtons {
