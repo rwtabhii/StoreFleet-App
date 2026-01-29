@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { CiFilter } from "react-icons/ci";
 import styles from "../../styles/component/filterProduct.module.css";
 import { useDispatch, useSelector } from "react-redux";
+import { useRef } from "react";
 import {
   fetchProducts,
   productSelector,
@@ -10,6 +11,7 @@ import {
 } from "../../redux/productReducer/productReducer.jsx";
 
 function FilterProductComponent() {
+  const isApplyingFilter = useRef(false);
   const { isFiltered, filterObj } = useSelector(productSelector);
   const dispatch = useDispatch();
 
@@ -49,6 +51,9 @@ function FilterProductComponent() {
   };
 
   const handleApplyFilters = () => {
+      isApplyingFilter.current = true;
+
+    // console.log("filterProduct button")
     const selectedCategories = Object.keys(category).filter(
       (cat) => category[cat]
     );
@@ -69,6 +74,11 @@ function FilterProductComponent() {
   };
 
   useEffect(() => {
+     if (isApplyingFilter.current) {
+    isApplyingFilter.current = false;
+    return;
+  }
+    // console.log("filterProduct useeffect")
     if (filterObj.MaxPrice !== undefined) {
       setMaxPrice(filterObj.MaxPrice);
     }
