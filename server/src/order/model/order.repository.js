@@ -2,43 +2,35 @@ import OrderModel from "./order.schema.js";
 import productModel from "../../product/model/product.schema.js"
 
 export const createNewOrderRepo = async (data) => {
-  // 1. Loop through ordered items and reduce stock
-  console.log("repo", data)
   for (const item of data.orderedItems) {
-    const product = await productModel.findById(item.product);
+    const updatedProduct = await productModel.findOneAndUpdate(
+      {
+        _id: item.product,
+        stock: { $gte: item.quantity } 
+      },
+      {
+        $inc: { stock: -item.quantity }
+      },
+      { new: true }
+    );
 
-    if (!product) {
+    if (!updatedProduct) {
       return {
         success: false,
         error: {
-          msg: "product not found",
-          code: 404
-        }
-      }
-    }
-
-    if (product.stock < item.quantity) {
-      return {
-        success: false,
-        error: {
-          msg: "Item is not in Stock",
+          msg: "Product not found or insufficient stock",
           code: 409
         }
-      }
+      };
     }
-
-    product.stock -= item.quantity;
-
-    await product.save({ validateBeforeSave: false }); // to skip schema validation on unmodified fields
   }
 
-  // 2. Save the order
   const newOrder = new OrderModel(data);
   await newOrder.save();
-  console.log(newOrder, "neworder")
-  return newOrder;
 
+  return newOrder;
 };
+
 // checking the single order that is order by the same user
 export const getSingleOrderRepo = async (id, userId) => {
   const order = await OrderModel.findOne({ _id: id, user: userId });

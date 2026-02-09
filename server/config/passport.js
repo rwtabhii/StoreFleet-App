@@ -15,7 +15,7 @@ passport.use(
         if (!user) {
           user = await UserModel.create({
             googleId: profile.id,
-            name: profile.displayName,
+            name: profile.displayName, 
             email: profile.emails[0].value,
             profileImg: profile.photos[0].value,
           });
