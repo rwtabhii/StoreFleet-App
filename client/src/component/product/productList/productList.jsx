@@ -9,7 +9,7 @@ export function ProductList({ searchTerm }) {
   const dispatch = useDispatch();
   const { showProducts, isLoading, error, isFiltered, filterObj, currentPage, totalPages } = useSelector(productSelector);
 
-  // 🔥 run only when filters/search change
+  //  run only when filters/search change
   useEffect(() => {
     const delayDebounce = setTimeout(() => {
       if (searchTerm.trim() !== "") {
