@@ -18,7 +18,7 @@ export function CartTotal() {
     try {
       if (totalPrice > 0) {
         navigate("/checkout");
-        toast.success("Order Completed");
+        toast.success("Order is in Processing");
       } else {
         toast.error("Your Cart is Empty");
       }

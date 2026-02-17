@@ -25,6 +25,7 @@ export const fetchAllOrderByAdmin = createAsyncThunk(
   "orders/fetchAllOrderByAdmin", async (_, thunkAPI) => {
     try {
       const allOrders = await showAllOrders();
+      console.log(allOrders,"byadmin");
       return allOrders;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.message || "Something went wrong");

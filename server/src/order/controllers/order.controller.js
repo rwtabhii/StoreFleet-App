@@ -17,9 +17,14 @@ export const createNewOrder = async (req, res, next) => {
     // console.log(req.body);
     const orderData = req.body;
     orderData.user = req.user._id;
-    orderData.paidAt = new Date().toISOString();
     const newOrder = await createNewOrderRepo(orderData);
-    // console.log("nweorder Controller", newOrder)
+    if(newOrder.success === false){
+      return res.status(newOrder.error.statusCode).json({
+        success : false,
+        msg : newOrder.error.message
+      })
+    }
+    console.log(newOrder,"from order cont")
     return res.status(201).json({
       success: true,
       order: newOrder
@@ -113,7 +118,7 @@ export const getUserOrders = async (req, res, next) => {
     
 //  console.log(userId)
     const orders = await getAllUserOrdersRepo(userId);
-
+   console.log(orders);
     if (!orders || orders.length === 0) {
       return res.status(404).json({ success: false, message: "No orders found for this user" });
     }
