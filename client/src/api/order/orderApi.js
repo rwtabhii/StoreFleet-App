@@ -16,9 +16,10 @@ export async function getOrderApi() {
 export async function addOrderApi(data) {
   try {
     const res = await api.post("/api/storefleet/order/new", data);
+    console.log("orderapi res",res)
     return res.data;
   } catch (error) {
-    console.error("Error adding order:", error);
+    console.log("Error adding order:", error);
     throw error;
   }
 }

@@ -14,4 +14,5 @@ router.route("/update/:id").put(auth, authByUserRole("admin"), updateOrder);
 
 router.route("/user/allorder/:id").get(auth, authByUserRole("admin"), getUserOrders)
 
+
 export default router;

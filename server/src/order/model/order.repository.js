@@ -1,33 +1,66 @@
 import OrderModel from "./order.schema.js";
 import productModel from "../../product/model/product.schema.js"
 
-export const createNewOrderRepo = async (data) => {
-  for (const item of data.orderedItems) {
-    const updatedProduct = await productModel.findOneAndUpdate(
-      {
-        _id: item.product,
-        stock: { $gte: item.quantity } 
-      },
-      {
-        $inc: { stock: -item.quantity }
-      },
-      { new: true }
-    );
+// export const createNewOrderRepo = async (data) => {
+//   for (const item of data.orderedItems) {
+//     const updatedProduct = await productModel.findOneAndUpdate(
+//       {
+//         _id: item.product,
+//         stock: { $gte: item.quantity } 
+//       },
+//       {
+//         $inc: { stock: -item.quantity }
+//       },
+//       { new: true }
+//     );
 
-    if (!updatedProduct) {
+//     if (!updatedProduct) {
+//       return {
+//         success: false,
+//         error: {
+//           msg: "Product not found or insufficient stock",
+//           code: 409
+//         }
+//       };
+//     }
+//   }
+
+//   const newOrder = new OrderModel(data);
+//   await newOrder.save();
+
+//   return newOrder;
+// };
+export const createNewOrderRepo = async (data) => {
+  // Just check stock availability (NO deduction)
+  for (const item of data.orderedItems) {
+    const product = await productModel.findOne({
+      _id: item.product,
+      stock: { $gte: item.quantity }
+    });
+
+    if (!product) {
       return {
         success: false,
         error: {
-          msg: "Product not found or insufficient stock",
-          code: 409
+          statusCode: 409,
+          message: "Product not found or insufficient stock"
         }
-      };
+      }
     }
   }
 
-  const newOrder = new OrderModel(data);
-  await newOrder.save();
+  // 2️⃣ Create INITIAL order
+  const newOrder = new OrderModel({
+    ...data,
+    paymentInfo: {
+      id: data.paymentInfo?.id || null,
+      status: "PENDING"       // 🔑 IMPORTANT
+    },
+    paidAt: null
+  });
+  // console.log(newOrder,"from order repo")
 
+  await newOrder.save();
   return newOrder;
 };
 
@@ -48,12 +81,12 @@ export const getAllOrdersRepo = async () => {
 }
 // only admin can access this method to update the order status of the user 
 export const updateOrderRepo = async (orderId, data) => {
-  const updateOrderStatus = await OrderModel.findByIdAndUpdate(orderId,{$set : data}
+  const updateOrderStatus = await OrderModel.findByIdAndUpdate(orderId, { $set: data }
     , { new: true });
   return updateOrderStatus;
 }
 // get all order of user seeing by admin 
 export const getAllUserOrdersRepo = async (userId) => {
-  const getAllOrder = await OrderModel.find({ user: userId });
+  const getAllOrder = await OrderModel.find({ user: userId }).populate("user");
   return getAllOrder;
 };

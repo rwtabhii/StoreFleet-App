@@ -4,6 +4,7 @@ import { updateOrderByAdmin, updateOrderLocally } from "../../../redux/orderRedu
 import styles from "../../../styles/component/allOrder.module.css";
 
 export function AllOrder({ order }) {
+    console.log(order,"orderall");
     const dispatch = useDispatch();
 
     const handleStatusChange = (e) => {

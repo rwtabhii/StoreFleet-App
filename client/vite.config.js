@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://localhost:3000", // your backend URL
+        target: "https://storefleet-app.onrender.com", // your backend URL
         changeOrigin: true,               // needed for CORS
         secure: false,                     // if backend is http
       },

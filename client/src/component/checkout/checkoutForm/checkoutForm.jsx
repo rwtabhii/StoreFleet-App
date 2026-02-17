@@ -8,6 +8,7 @@ import { clearCart } from "../../../redux/cartReducer/cartReducer.jsx";
 
 import { clearCartApi } from "../../../api/cart/cart.js";
 import styles from "../../../styles/component/checkoutForm.module.css";
+import { checkPaymentConfirmation } from "../../../api/payment/paymentApi.js";
 
 export function CheckoutForm({ items, clientSecret }) {
   const stripe = useStripe();
@@ -37,6 +38,7 @@ export function CheckoutForm({ items, clientSecret }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+
     if (!stripe || !elements) {
       toast.error("Stripe not loaded yet!");
       return;
@@ -46,21 +48,7 @@ export function CheckoutForm({ items, clientSecret }) {
     setMessage("");
 
     try {
-      const { error, paymentIntent } = await stripe.confirmPayment({
-        elements,
-        confirmParams: { return_url: `${window.location.origin}/order-success` },
-        redirect: "if_required",
-      });
-
-      if (error) {
-        setMessage(error.message);
-        toast.error(error.message);
-        setLoading(false);
-        return;
-      }
-
-      if (paymentIntent && paymentIntent.status === "succeeded") {
-        const orderData = {
+        const initalOrderData = {
           shippingInfo: {
             address: formData.address,
             state: formData.city,
@@ -77,14 +65,51 @@ export function CheckoutForm({ items, clientSecret }) {
           })),
           totalPrice: total,
           shippingPrice: shipping,
-          paymentInfo: {
-            id: paymentIntent.id,
-            status: paymentIntent.status,
-            type: paymentIntent.payment_method_types[0] || "card",
-          },
         };
-
-        await addOrderApi(orderData);
+        //  creating the inital order
+      const order =  await addOrderApi(initalOrderData);
+      console.log("checkoutformorder",order)
+      const { error, paymentIntent } = await stripe.confirmPayment({
+        elements,
+        confirmParams: { return_url: `${window.location.origin}/order-success` },
+        redirect: "if_required",
+      });
+      
+      if (error) {
+        console.log(error)
+        setMessage(error.message);
+        toast.error(error.message);
+        setLoading(false);
+        return;
+      }
+      console.log(paymentIntent,"checkout payment intent");
+      // const orderData = {
+      //     shippingInfo: {
+      //       address: formData.address,
+      //       state: formData.city,
+      //       country: "IN",
+      //       pincode: Number(formData.postalCode),
+      //       phoneNumber: Number(formData.phone),
+      //     },
+      //     orderedItems: items.map((item) => ({
+      //       product: item.product._id,
+      //       name: item.product.title,
+      //       price: item.product.price,
+      //       quantity: item.quantity,
+      //       image: item.product.image || "",
+      //     })),
+      //     totalPrice: total,
+      //     shippingPrice: shipping,
+      //     paymentInfo: {
+      //       id: paymentIntent.id,
+      //       status: paymentIntent.status,
+      //       type: paymentIntent.payment_method_types[0] || "card",
+      //     },
+      //   };
+      
+      if (paymentIntent && paymentIntent.status === "succeeded") {
+        console.log(order,"inside payment intet")
+        await checkPaymentConfirmation({orderId : order.order._id,paymentIntentId: paymentIntent.id});
         dispatch(clearCart());
         await clearCartApi();
 
@@ -92,8 +117,8 @@ export function CheckoutForm({ items, clientSecret }) {
         navigate("/order-success");
       }
     } catch (err) {
-      console.error(err);
-      setMessage("Something went wrong during checkout.");
+      console.log(err); 
+      setMessage(err.response.data.msg);
       toast.error("Checkout failed");
     } finally {
       setLoading(false);

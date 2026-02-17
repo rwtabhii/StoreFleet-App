@@ -20,3 +20,17 @@ export const createPaymentIntentApi = async (items) => {
     throw err;
   }
 };
+
+export const checkPaymentConfirmation = async ({ orderId, paymentIntentId }) => {
+  try {
+    const res = await api.post("/api/storefleet/payment/order/confirm-payment", {
+      orderId,
+      paymentIntentId
+    });
+
+    return res.data;
+  } catch (error) {
+    console.error("Payment confirmation failed:", error);
+    throw error;
+  }
+};
